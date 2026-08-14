@@ -251,6 +251,18 @@ html.dark {
     padding-left: 1rem;
     padding-right: 1rem;
   }
+
+  /*
+    Soft, wide-spread shadow for cards/panels floating on the page tint.
+    Two layers — a big soft ambient falloff plus a closer, slightly denser
+    one — reads as diffuse light rather than a hard drop shadow. Slate-tinted
+    (not pure black) to stay tasteful against Bevel's cool-grey palette.
+  */
+  .shadow-diffuse {
+    box-shadow:
+      0 30px 60px -20px rgba(15, 23, 42, 0.12),
+      0 10px 24px -10px rgba(15, 23, 42, 0.08);
+  }
 }
 /*
   Text colour now comes from daisyUI's base-content, so it follows data-theme

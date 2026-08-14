@@ -10,7 +10,7 @@ interface Props {
 const { quote, attribution, image = null, imageAlt = "" } = Astro.props;
 ---
 
-<div class="card h-full overflow-hidden bg-base-100 border border-base-300">
+<div class="card h-full overflow-hidden bg-base-100 border border-base-300 shadow-diffuse">
   <figure class="aspect-[4/3] w-full bg-base-300/60">
     {
       image ? (

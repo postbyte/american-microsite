@@ -13,7 +13,7 @@ const { items } = Astro.props;
 <div class="flex flex-col gap-3">
   {
     items.map((item) => (
-      <div class="collapse collapse-plus bg-base-100 border border-base-300">
+      <div class="collapse collapse-plus bg-base-100 border border-base-300 shadow-diffuse">
         <input type="checkbox" aria-label={item.q} />
         <div class="collapse-title text-h3 pr-14">{item.q}</div>
         <div class="collapse-content">

@@ -58,5 +58,7 @@ import '../styles/article-enhancements.css';
     <slot />
     <Footer />
     <script src="../assets/js/main.js"></script>
+    <!-- Dev-only annotation overlay: https://github.com/mearnest-dev/agentation-vanilla -->
+    {import.meta.env.DEV && <script src="/scripts/agentation-vanilla.js" is:inline />}
   </body>
 </html>

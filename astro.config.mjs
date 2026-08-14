@@ -26,6 +26,11 @@ export default defineConfig({
 
   server: {
     port: 5200,
+    allowedHosts: ["acquisition-pop-acknowledge-playing.trycloudflare.com"],
+  },
+
+  devToolbar: {
+    enabled: false,
   },
 
   integrations: [mdx(), sitemap()],
