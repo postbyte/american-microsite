@@ -33,21 +33,26 @@ import '../styles/article-enhancements.css';
       keywords = {keywords}
     />
     <TrackGa />
-    <!-- Used to add dark mode right away, adding here prevents any flicker -->
+    <!--
+      Sets the theme before first paint to prevent flicker. Writes BOTH
+      data-theme (drives the daisyUI themes) and the legacy .dark class
+      (still used by dark: utilities on /blog, /about and /works).
+    -->
     <script is:inline>
-      if (typeof Storage !== 'undefined') {
-        if (
-          localStorage.getItem('dark_mode') &&
-          localStorage.getItem('dark_mode') == 'true'
-        ) {
-          document.documentElement.classList.add('dark')
-        }
-      }
+      (function () {
+        var dark = false;
+        try {
+          dark = localStorage.getItem('dark_mode') === 'true';
+        } catch (e) {}
+        var root = document.documentElement;
+        root.setAttribute('data-theme', dark ? 'acdark' : 'aclight');
+        root.classList.toggle('dark', dark);
+      })();
     </script>
 
     <link rel="icon" type="image/x-icon" href="/favicon.png" />
   </head>
-  <body class="antialiased bg-bg-primary dark:bg-bg-primary-dark max-w-full overflow-x-hidden">
+  <body class="antialiased bg-base-200 text-base-content max-w-full overflow-x-hidden">
     <TopBg />
     <Header />
     <slot />

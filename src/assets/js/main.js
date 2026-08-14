@@ -5,20 +5,16 @@ window.darkMode = false;
 
 const stickyClasses = [];
 const unstickyClasses = [];
+// Bevel keeps the nav as a floating capsule; it just gains a surface on scroll.
 const stickyClassesContainer = [
-	"shadow-[0px_1px_4px_0_rgba(25,33,61,0.06)]",
-	"rounded-[20px]",
-	"bg-[#ffffff]/65",
-	"border-[#ffffff]/65",
-	"dark:border-neutral-600/40",
-	"dark:bg-neutral-900/60",
-	"backdrop-blur-2xl",
-	"backdrop-brightness-120",
+	"shadow-sm",
+	"bg-base-100/80",
+	"border-base-300",
+	"backdrop-blur-xl",
 ];
 const unstickyClassesContainer = [
 	"shadow-none",
 	"border-transparent",
-	"rounded-none",
 	"bg-transparent",
 ];
 let headerElement = null;

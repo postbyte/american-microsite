@@ -1,132 +1,265 @@
 ---
-import Button from "../components/ui/Button.astro";
-import { siteConfig } from "@/config/site";
-import HeroCard from "@/components/home/HeroCard.astro";
 import Layout from "@/layouts/Layout.astro";
-import FeaturedWork from "../components/sections/FeaturedWork.astro";
-import BlogSection from "@/components/sections/BlogSection.astro";
-import SocialCard from "@/components/cards/SocialCard.astro";
+import Button from "@/components/ui/Button.astro";
 import AnimatedText from "@/components/ui/AnimatedText.astro";
-import Explore from "@/components/sections/Explore.astro";
+import SectionHeader from "@/components/elements/SectionHeader.astro";
+
+import ProofStrip from "@/components/challenge/ProofStrip.astro";
+import ChatCard from "@/components/challenge/ChatCard.astro";
+import JobCard from "@/components/challenge/JobCard.astro";
+import StepCard from "@/components/challenge/StepCard.astro";
+import Panel from "@/components/challenge/Panel.astro";
+import Leaderboard from "@/components/challenge/Leaderboard.astro";
+import StatFigure from "@/components/challenge/StatFigure.astro";
+import TestimonialCard from "@/components/challenge/TestimonialCard.astro";
+import FaqAccordion from "@/components/challenge/FaqAccordion.astro";
+
+import challenge from "@/collections/challenge.json";
+
+const {
+  proofStats,
+  dayCards,
+  sixJobs,
+  howItWorks,
+  leaderboard,
+  oldWay,
+  outcomeStats,
+  testimonials,
+  faq,
+} = challenge;
+
+const aos = {
+  "data-aos": "fade-up-sm",
+  "data-aos-delay": "100",
+  "data-aos-duration": "600",
+  "data-aos-once": "true",
+};
 ---
 
 <Layout
-title="Rico Portfolio Site 2025"
-description="Welcome to Rico's portfolio site! Explore my work as a web/UI designer with 8+ years of experience in creating captivating visuals and interactive experiences."
-keywords="Rico, Portfolio, Web Design, UI Design, Frontend Development, Creative Designer"
+  title="The American Challenge — 30 Days, Built Like Training | Sam"
+  description="Join student-athletes across the American Conference in a 30-day challenge for the stuff that's actually heavy off the field. Free, private, 2 minutes a day."
+  keywords="American Conference student-athlete challenge, Sam, student-athlete mental performance, The American Challenge"
 >
-  <div
-    class="relative site-container z-20  w-full mx-auto mt-16 px-4 md:mt-18 lg:mt-20 xl:px-0"
-  >
-    <div class="relative w-full px-4 flex flex-col items-center justify-between md:flex-row mb-16 ">
-      <div class="relative w-full md:max-w-[420px] md:w-1/2 text-center sm:text-left sm:-mt-8">
-        <!-- Title - AnimatedText animation -->
-        <h1 class="mb-4">
-          <AnimatedText
-            content="Hi, I'm Rico"
-            delay={0.1}
-            duration={0.5}
-            stagger={0.08}
-            class="text-5xl text-pri leading-tight md:text-4xl lg:text-6xl font-brand "
-          />
-        </h1>
+  <!-- 1. Hero — centred, oversized, on the atmospheric wash from TopBg -->
+  <section class="site-container relative z-20 pt-16 pb-20 text-center md:pt-24">
+    <p class="text-eyebrow text-accent-text">The American Challenge</p>
 
-        <!-- First description - AnimatedText animation -->
-        <div class="mb-2">
-          <AnimatedText
-            content="I'm a web/UI designer with 8+ years of experience. I love blending design and code to create captivating visuals and interactive experiences."
-            delay={0.3}
-            duration={0.5}
-            stagger={0.015}
-            class="text-base text-neutral-700 dark:text-neutral-300"
-          />
-        </div>
+    <h1 class="mx-auto mt-7 max-w-4xl">
+      <AnimatedText
+        content="Harness Your Best."
+        delay={0.1}
+        duration={0.5}
+        stagger={0.08}
+        class="text-display"
+      />
+    </h1>
 
-        <!-- Second description - AnimatedText animation -->
-        <div class="mb-4">
-          <AnimatedText
-            content="I believe great design should be both delightful and solve real-world challenges."
-            delay={0.5}
-            duration={0.5}
-            stagger={0.015}
-            class="text-base text-neutral-700 dark:text-neutral-300"
-          />
-        </div>
+    <div class="mx-auto mt-7 max-w-xl">
+      <AnimatedText
+        content="Join student-athletes taking on 30 days of the stuff that's heavy off the field."
+        delay={0.3}
+        duration={0.5}
+        stagger={0.015}
+        class="text-lead text-base-content/65"
+      />
+    </div>
 
-        <!-- Button - AOS animation -->
-        <div
-          class=""
-          data-aos="fade-up-sm"
-          data-aos-delay="900"
-          data-aos-duration="500"
-          data-aos-once="true"
-        >
-          <Button url={siteConfig.social.twitter} type="fill" className="m-auto mt-4 text-center sm:text-left sm:m-0 sm:mt-6 max-w-[200px]">
-            Follow me on 𝕏
-          </Button>
-        </div>
+    <div
+      class="mt-10 flex flex-col items-center gap-4"
+      data-aos="fade-up-sm"
+      data-aos-delay="800"
+      data-aos-duration="500"
+      data-aos-once="true"
+    >
+      <Button url="#final" type="fill" size="lg">Sign Your School Up</Button>
+      <p class="text-sm text-base-content/55">
+        This is more than sports, this is about you.
+      </p>
+    </div>
+  </section>
 
-        <!-- Social Cards - AOS animation -->
-        <div
-          class="social mt-8 mb-8"
-          data-aos="fade-up-sm"
-          data-aos-delay="1000"
-          data-aos-duration="600"
-          data-aos-once="true"
-        >
-          <SocialCard displaySocialIds={[1, 2, 3,4]}/>
-        </div>
-      </div>
-
-      <!-- HeroCard - AOS animation -->
-      <div
-        class="relative justify-end w-full mt-16 md:flex md:pl-10 md:w-1/2 md:mt-0 md:translate-y-4 xl:translate-y-0"
-        data-aos="fade-left-sm"
-        data-aos-delay="300"
-        data-aos-duration="800"
-        data-aos-once="true"
-      >
-        <HeroCard
-          imageUrl="/assets/home/gradientshub.jpg"
-          title="Gradientshub"
-          link="https://gradientshub.com"
-        />
-      </div>
+  <!-- Full-bleed photography band. Bevel puts imagery edge-to-edge, not in a card. -->
+  <div class="px-3 sm:px-4 lg:px-6" {...aos}>
+    <!-- Replace with real photography: public/assets/challenge/ -->
+    <div
+      class="mx-auto flex aspect-[4/3] w-full max-w-[1600px] items-center justify-center overflow-hidden rounded-[2rem] bg-base-300/60 sm:aspect-[2.6/1]"
+      role="img"
+      aria-label="Student-athlete between classes, American Conference campus"
+    >
+      <p class="px-6 text-center text-base text-base-content/50">
+        Student-athlete between classes, American Conference campus
+      </p>
     </div>
   </div>
 
-  <section
-    class="mt-26 mb-12"
-    data-aos="fade-up-sm"
-    data-aos-delay="100"
-    data-aos-duration="600"
-    data-aos-once="true"
-  >
-    <Explore title="Explore ↓"  />
+  <!-- 2. Proof Strip -->
+  <div class="site-container pt-16 sm:pt-20" {...aos}>
+    <ProofStrip stats={proofStats} />
+  </div>
+
+  <!-- 3. This is what a day looks like -->
+  <section class="site-container section-y" {...aos}>
+    <SectionHeader title="This is what a day looks like." />
+    <div class="mt-16 grid gap-6 md:grid-cols-3">
+      {dayCards.map((card) => <ChatCard quote={card.quote} reply={card.reply} />)}
+    </div>
   </section>
 
-  <section
-    class="mt-26 mb-12"
-    data-aos="fade-up-sm"
-    data-aos-delay="100"
-    data-aos-duration="600"
-    data-aos-once="true"
-  >
-    <FeaturedWork title="Featured Work ↓" description="I create innovative and purposeful designs that not only capture attention but also drive meaningful results." limit={5} />
-  </section>
-
-  <section
-    class="mt-26 mb-12"
-    data-aos="fade-up-sm"
-    data-aos-delay="100"
-    data-aos-duration="600"
-    data-aos-once="true"
-  >
-    <BlogSection
-      title="Latest Articles  ↓"
-      description="These are my notes and articles on design, development and life thinking."
-      showViewAllButton={true}
+  <!-- 4. Six things actually worth training for -->
+  <section id="challenges" class="site-container pb-24" {...aos}>
+    <SectionHeader
+      title="Six things actually worth training for."
+      description="Every challenge maps to one of these. None of them are about being fixed."
     />
+    <div class="mt-16 flex flex-col gap-6">
+      {
+        sixJobs.map((job) => (
+          <JobCard
+            title={job.title}
+            description={job.description}
+            image={job.image}
+            imageAlt={job.imageAlt}
+          />
+        ))
+      }
+    </div>
   </section>
 
+  <!-- 5. How it works -->
+  <section id="how" class="site-container pb-24" {...aos}>
+    <SectionHeader title="How it works." />
+    <ul class="steps steps-vertical mt-14 w-full lg:steps-horizontal">
+      {
+        howItWorks.map((step) => (
+          <StepCard
+            num={step.num}
+            title={step.title}
+            description={step.description}
+          />
+        ))
+      }
+    </ul>
+  </section>
+
+  <!-- 6. Your school is in a race — navy moment #1 of 2 -->
+  <Panel id="leaderboard" tone="navy">
+    <div class="grid items-center gap-14 p-10 sm:p-14 md:grid-cols-2 lg:gap-20">
+      <div {...aos}>
+        <h2 class="text-h2 !text-primary-content">Your school is in a race.</h2>
+        <p class="text-lead mt-6 text-primary-content/75">
+          Every check-in is a point for your school. The school that
+          participates the most wins $1,500 for its SAAC. You don't need your
+          whole team to sign up to start climbing — but it helps. Go recruit.
+        </p>
+        <a
+          href="#leaderboard"
+          class="btn btn-accent mt-9 rounded-full border-0 font-medium shadow-none"
+        >
+          Check the Leaderboard
+        </a>
+      </div>
+      <div {...aos}>
+        <Leaderboard rows={leaderboard} />
+      </div>
+    </div>
+  </Panel>
+
+  <!-- 7. Built to actually listen -->
+  <section class="site-container section-y" {...aos}>
+    <SectionHeader
+      title="Built to actually listen."
+      description="Most advice hands you a checklist before it knows what's wrong. Sam asks what's actually going on first and what's actually eating at you. That where the real conversations start. That's not a script. That's what a good conversation with someone who's paying attention sounds like."
+    />
+    <div class="mt-16 grid items-stretch gap-6 md:grid-cols-5">
+      <div class="card border border-base-300 bg-base-100 md:col-span-2">
+        <div class="card-body p-8">
+          <p class="text-eyebrow mb-6 text-base-content/45">The old way</p>
+          <ul class="flex flex-col gap-3">
+            {
+              oldWay.map((line) => (
+                <li class="text-base text-base-content/50">{line}</li>
+              ))
+            }
+          </ul>
+        </div>
+      </div>
+      <div class="card bg-base-300/50 md:col-span-3">
+        <div class="card-body justify-center p-8 sm:p-12">
+          <p class="text-eyebrow mb-6 text-accent-text">Sam</p>
+          <p class="text-h2 !text-[clamp(1.75rem,3vw,2.5rem)]">
+            What's actually eating at you today?
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. It's already working -->
+  <section class="site-container pb-24" {...aos}>
+    <SectionHeader title="Sam's already working for student-athletes." />
+    <div class="mt-16 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        outcomeStats.map((stat) => (
+          <StatFigure value={stat.value} description={stat.description} />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 9. From athletes who've used it -->
+  <section class="site-container pb-24" {...aos}>
+    <SectionHeader title="From athletes who've used it." />
+    <div class="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      {
+        testimonials.map((item) => (
+          <TestimonialCard
+            quote={item.quote}
+            attribution={item.attribution}
+            image={item.image}
+            imageAlt={item.imageAlt}
+          />
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- 10. Private by design — the quiet pause, deliberately NOT dark -->
+  <Panel id="privacy">
+    <div class="mx-auto max-w-2xl px-8 py-24 text-center sm:py-28" {...aos}>
+      <h2 class="text-h2">Private by design.</h2>
+      <p class="text-lead mt-7 text-base-content/65">
+        What you tell Sam stays with Sam, unless you choose to share it. No
+        coach sees your check-ins. No default reporting to your athletic
+        department. Disclosure happens when you decide it should — not before.
+        Sam is not therapy, and it always says so plainly.
+      </p>
+    </div>
+  </Panel>
+
+  <!-- 11. FAQ -->
+  <section id="faq" class="section-y mx-auto max-w-3xl px-4" {...aos}>
+    <SectionHeader title="Questions." />
+    <div class="mt-14">
+      <FaqAccordion items={faq} />
+    </div>
+  </section>
+
+  <!-- 12. Final CTA — navy moment #2 of 2 -->
+  <Panel id="final" tone="navy">
+    <div class="mx-auto max-w-2xl px-8 py-24 text-center sm:py-28" {...aos}>
+      <h2 class="text-h2 !text-primary-content">
+        30 days. Whenever you're ready.
+      </h2>
+      <p class="text-lead mt-6 text-primary-content/75">
+        Early access opens August 18. The challenge runs September 8 – October 8.
+      </p>
+      <a
+        href="#final"
+        class="btn btn-accent btn-lg mt-10 rounded-full border-0 font-medium shadow-none"
+      >
+        Sign Your School Up
+      </a>
+    </div>
+  </Panel>
 </Layout>

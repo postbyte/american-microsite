@@ -1,89 +1,228 @@
-/* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
+/* Geist only — one family, weights 400/500/600. Bevel's boldness comes from
+   size + tight tracking, never from heavy weight. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 @import "tailwindcss";
 
 /* Path relative to current CSS file */
 @config "../../tailwind.config.mjs";
 
+@plugin "daisyui" {
+  themes: aclight --default, acdark --prefersdark;
+}
 
-/* Define theme font mappings */
+/* Light: near-white panels on a light-blue page. Navy is RARE — it appears
+   only on the primary CTA, the leaderboard panel and the closing CTA. */
+@plugin "daisyui/theme" {
+  name: "aclight";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f1f5f9;
+  --color-base-300: #e2e8f0;
+  --color-base-content: #0f172a;
+
+  --color-primary: #041e42;
+  --color-primary-content: #ffffff;
+  --color-secondary: #334155;
+  --color-secondary-content: #ffffff;
+  --color-accent: #e2231a;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1e293b;
+  --color-neutral-content: #f8fafc;
+
+  --color-info: #0a2e63;   --color-info-content: #ffffff;
+  --color-success: #166534; --color-success-content: #ffffff;
+  --color-warning: #92400e; --color-warning-content: #ffffff;
+  --color-error: #b81810;   --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 9999px;   /* Bevel's pill buttons */
+  --radius-box: 1.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Dark: the inverse — navy dominates, near-white becomes rare. */
+@plugin "daisyui/theme" {
+  name: "acdark";
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #0b1729;
+  --color-base-200: #08111f;
+  --color-base-300: #1b2b45;
+  --color-base-content: #e2e8f0;
+
+  --color-primary: #a9bcd6;
+  --color-primary-content: #08111f;
+  --color-secondary: #cbd5e1;
+  --color-secondary-content: #08111f;
+  --color-accent: #f04a3f;
+  --color-accent-content: #08111f;
+  --color-neutral: #e2e8f0;
+  --color-neutral-content: #08111f;
+
+  --color-info: #a9bcd6;   --color-info-content: #08111f;
+  --color-success: #86efac; --color-success-content: #08111f;
+  --color-warning: #fcd34d; --color-warning-content: #08111f;
+  --color-error: #f87171;   --color-error-content: #08111f;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 9999px;
+  --radius-box: 1.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/*
+  Legacy token names are KEPT and re-pointed at the new cool-grey palette.
+  /blog, /about, /works and ~10 shared components still reference them
+  (bg-bg-primary, text-primary, border-primary/15, bg-neutral-*). Renaming
+  would break those pages; re-pointing keeps them coherent for free.
+*/
 @theme {
-  --font-brand: "Instrument Serif", ui-sans-serif, system-ui, Noto Sans SC, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-sans: "Inter", ui-sans-serif, system-ui, Noto Sans SC, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-body: "Inter", ui-sans-serif, system-ui, Noto Sans SC, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-brand: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
   --max-screen: 1200px;
   --inner-screen: 800px;
 
-  --color-neutral-50: #f7f9fc;
-  --color-neutral-100: #edf1f8;
-  --color-neutral-200: #dfe4ed;
-  --color-neutral-300: #c5cedb;
-  --color-neutral-400: #92a1b7;
-  --color-neutral-500: #677487;
-  --color-neutral-600: #4f5a6d;
-  --color-neutral-700: #3f4a5a;
-  --color-neutral-800: #2c3542;
-  --color-neutral-900: #19222f;
-  --color-neutral-950: #10161f;
+  /* Fluid display scale. Headings clamp; body stays fixed rem. */
+  --text-display: clamp(2.75rem, 7vw, 5rem);
+  --text-h2: clamp(2rem, 4.5vw, 3.5rem);
+  --text-h3: 1.5rem;
+  --text-lead: 1.25rem;
 
-  --color-primary: #2d6dc3;
-  --color-primary-rgb: 45, 109, 195;
-  --color-primary-strong: #0066ff;
-  --color-primary-dark: #2d6dc3;
-  --color-primary-light: #8fb9ff;
-  --color-primary-light-dark: #bcd8ff;
-  --color-primary-lighter: #6da7ff;
-  /* Article-specific variables */
+  /* Cool slate ramp (was blue-tinted). */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+
+  --color-primary: #041e42;
+  --color-primary-rgb: 4, 30, 66;
+  --color-primary-strong: #0a2e63;
+  --color-primary-dark: #041e42;
+  --color-primary-light: #7c93b5;
+  --color-primary-light-dark: #a9bcd6;
+  --color-primary-lighter: #5b76a0;
   --color-primary-bg: var(--color-bg-primary-light);
   --color-primary-bg-light: var(--color-bg-secondary);
 
+  --color-btn-primary: #041e42;
+  --color-btn-primary-hover: #0a2e63;
+  --color-btn-primary-dark: #1b3a66;
+  --color-btn-primary-dark-hover: #2a4d80;
 
-  --color-btn-primary: #2d6dc3;
-  --color-btn-primary-hover: #0066ff;
-  --color-btn-primary-dark: #2871e9;
-  --color-btn-primary-dark-hover: #2d6dc3;
+  --color-accent: #e2231a;
+  --color-accent-light: #f04a3f;
+  --color-accent-deep: #b81810;
+  /*
+    Brand red #E2231A is only 4.27:1 on white — it fails AA for small text but
+    is fine as a fill. This is the text-safe red; it flips per theme below.
+  */
+  --color-accent-text: #b81810;
 
-  /* Accent colors */
-  --color-accent: #fad13b;
-  --color-accent-light: #faeb75;
+  --color-bg-primary: #f1f5f9;
+  --color-bg-secondary: #ffffff;
+  --color-bg-primary-light: #f8fafc;
+  --color-bg-primary-deep: #ffffff;
 
-  /* Background colors */
+  --color-bg-primary-dark: #08111f;
+  --color-bg-secondary-dark: #0b1729;
 
-  --color-bg-primary: #fdfaf5;
-  --color-bg-secondary: #fff;
-  --color-bg-primary-light: #faf9f5;
-  --color-bg-primary-deep: #fefcf4;
+  --color-band: #041e42;
+  --color-band-dark: #0d2545;
 
-  --color-bg-primary-dark: #0b1220;
-  --color-bg-secondary-dark: #0f1b2d;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-tertiary: #475569;
 
+  --color-text-primary-dark: #e2e8f0;
+  --color-text-secondary-dark: #cbd5e1;
+  --color-text-tertiary-dark: #94a3b8;
+}
 
-  /* Text colors */
-  --color-text-primary: #2d6dc3;
-  --color-text-secondary: #3f4a5a;
-  --color-text-tertiary: #7a6550;
-
-  --color-text-primary-dark: #3884eb;
-  --color-text-secondary-dark: #c5cedb;
-  --color-text-tertiary-dark: #9bb3d7;
+/* Text-safe red inverts on the dark theme. */
+[data-theme="acdark"] {
+  --color-accent-text: #ff9d92;
 }
 
 /* Dark mode variable overrides */
 html.dark {
-  --color-primary-rgb: 56, 132, 235;
-  --color-primary-light-dark: #3884eb;
-  --color-primary-lighter: #8fb9ff;
-  --color-primary-bg: rgba(56, 132, 235, 0.15);
-  --color-primary-bg-light: rgba(56, 132, 235, 0.05);
+  --color-primary-rgb: 169, 188, 214;
+  --color-primary-light-dark: #a9bcd6;
+  --color-primary-lighter: #7c93b5;
+  --color-primary-bg: rgba(169, 188, 214, 0.15);
+  --color-primary-bg-light: rgba(169, 188, 214, 0.05);
 }
 
 /* Add typography styles */
 @layer components {
+  /* Kept for /blog, /works, /about and the card components. Now just Geist. */
   .font-brand{
-    font-weight: 400!important;
+    font-family: var(--font-brand);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /*
+    The core of the redesign. Bevel's display type is 64px/600/-0.03em at
+    line-height 1.0 — the weight never exceeds 600, so the impact has to come
+    from scale and negative tracking. Going heavier reads as the opposite.
+  */
+  .text-display{
+    font-size: var(--text-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+  .text-h2{
+    font-size: var(--text-h2);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .text-h3{
+    font-size: var(--text-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  .text-lead{
+    font-size: var(--text-lead);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .text-eyebrow{
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  /* Bevel's section padding: generous and fluid. */
+  .section-y{
+    padding-block: clamp(5rem, 10vw, 9rem);
   }
   .prose {
     max-width: 65ch;
@@ -112,30 +251,18 @@ html.dark {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .gradient-title {
-    background: linear-gradient(to right, #746aff, #0b046d);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
- .gradient-title-light{
-    background: linear-gradient(to right, #bcb7ff, #746aff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
-  }
 }
+/*
+  Text colour now comes from daisyUI's base-content, so it follows data-theme
+  automatically in both directions. Replaces the old html.dark pairs — the
+  legacy tokens were re-pointed to the same values, so /blog and /about are
+  unaffected.
+*/
 html,body{
-  color: var(--color-text-secondary);
-}
-html.dark,html.dark body{
-  color: var(--color-text-secondary-dark);
+  color: var(--color-base-content);
 }
 h1,h2,h3{
-  color:var(--color-text-primary);
-}
-html.dark h1,html.dark h2,html.dark h3{
-  color:var(--color-text-primary-dark);
+  color: var(--color-base-content);
 }
 
 /* Custom CSS styles */

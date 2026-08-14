@@ -1,0 +1,48 @@
+---
+interface Props {
+  rows: { rank: number; school: string; points: string }[];
+}
+
+const { rows } = Astro.props;
+---
+
+<!--
+  daisyUI table. Always sits inside the Panel tone="navy" surface, so colours
+  key off primary-content rather than a hardcoded white — the panel inverts to
+  a light surface in dark mode and white text would disappear on it.
+-->
+<div class="overflow-hidden rounded-2xl bg-primary-content/5 ring-1 ring-primary-content/15">
+  <table class="table">
+    <caption class="sr-only">Sample school leaderboard standings</caption>
+    <tbody>
+      {
+        rows.map((row, i) => (
+          <tr
+            class:list={[
+              "border-primary-content/10",
+              i === 0
+                ? "bg-accent text-accent-content"
+                : "text-primary-content/65",
+              i === rows.length - 1 && "border-none",
+            ]}
+          >
+            <td class="w-12 py-4 text-sm font-semibold tabular-nums">
+              {row.rank}
+            </td>
+            <td
+              class:list={[
+                "py-4 text-base",
+                i === 0 ? "font-semibold" : "font-medium text-primary-content",
+              ]}
+            >
+              {row.school}
+            </td>
+            <td class="py-4 text-right text-sm font-semibold tabular-nums">
+              {row.points}
+            </td>
+          </tr>
+        ))
+      }
+    </tbody>
+  </table>
+</div>

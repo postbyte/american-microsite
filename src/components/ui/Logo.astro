@@ -1,7 +1,39 @@
+---
+interface Props {
+  /** Slightly smaller lockup for the footer. */
+  size?: "md" | "sm";
+  class?: string;
+}
+
+const { size = "md", class: className = "" } = Astro.props;
+
+const markHeight = size === "sm" ? "h-7" : "h-8";
+const wordmarkSize = size === "sm" ? "text-[13px]" : "text-[15px]";
+const samSize = size === "sm" ? "text-[18px]" : "text-[20px]";
+---
+
 <a
   href="/"
-  class="h-10 text-base group relative z-30 flex items-center aspect-square"
+  class={`group relative z-30 flex items-center gap-2.5 ${className}`}
+  aria-label="American Conference × Sam — home"
 >
-  <img src="/assets/logo.png" alt="Logo" class="w-10 h-10 rounded-full" />
+  <img
+    src="/assets/american-conference.svg"
+    alt=""
+    aria-hidden="true"
+    class={`${markHeight} w-auto shrink-0`}
+    width="125"
+    height="134"
+  />
+  <span
+    class={`hidden sm:inline ${wordmarkSize} font-semibold tracking-[-0.01em] leading-none text-base-content whitespace-nowrap`}
+  >
+    AMERICAN CONFERENCE
+  </span>
+  <span class="hidden sm:inline text-[15px] leading-none text-base-content/40" aria-hidden="true">&times;</span>
+  <span
+    class={`${samSize} font-semibold leading-none text-accent-text`}
+  >
+    Sam
+  </span>
 </a>
-

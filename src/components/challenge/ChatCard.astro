@@ -1,0 +1,28 @@
+---
+interface Props {
+  quote: string;
+  reply: string;
+}
+
+const { quote, reply } = Astro.props;
+---
+
+<div class="card h-full bg-base-100 border border-base-300">
+  <div class="card-body gap-2 p-7">
+    <!-- The athlete's message: right-aligned, in a bubble. -->
+    <div class="chat chat-end">
+      <div class="chat-bubble chat-bubble-primary text-base leading-relaxed">
+        {quote}
+      </div>
+    </div>
+
+    <!--
+      Sam answers from the left with no bubble — plain text, so the system
+      voice reads as a reply rather than another chat participant.
+    -->
+    <div class="mt-3">
+      <p class="text-eyebrow mb-2 text-accent-text">Sam</p>
+      <p class="text-base leading-relaxed text-base-content/75">{reply}</p>
+    </div>
+  </div>
+</div>

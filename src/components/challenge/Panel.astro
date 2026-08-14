@@ -1,0 +1,25 @@
+---
+interface Props {
+  id?: string;
+  /** navy = one of the two rare dark moments; plain = white pause panel. */
+  tone?: "navy" | "plain";
+  class?: string;
+}
+
+const { id, tone = "plain", class: className = "" } = Astro.props;
+
+const toneClasses =
+  tone === "navy"
+    ? "bg-primary text-primary-content"
+    : "bg-base-100 border border-base-300";
+---
+
+<!--
+  Bevel separates sections with inset rounded panels floating on the page
+  tint, not full-bleed bands with hard edges.
+-->
+<section id={id} class="site-container">
+  <div class={`rounded-[2rem] overflow-hidden ${toneClasses} ${className}`}>
+    <slot />
+  </div>
+</section>

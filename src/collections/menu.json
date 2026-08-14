@@ -1,18 +1,18 @@
 [
 	{
-		"name": "Home",
-		"url": "/"
+		"name": "How it works",
+		"url": "/#how"
 	},
 	{
-		"name": "Writing",
-		"url": "/blog"
+		"name": "For FARs",
+		"url": "#"
 	},
 	{
-		"name": "Works",
-		"url": "/works"
+		"name": "For SAAC",
+		"url": "#"
 	},
 	{
-		"name": "About",
-		"url": "/about"
+		"name": "More",
+		"url": "#"
 	}
 ]

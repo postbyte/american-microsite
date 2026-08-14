@@ -3,31 +3,27 @@
 const SITE_URL = import.meta.env.PUBLIC_SITE_URL || 'https://portfolio.ricoui.com/';
 
 export const siteConfig = {
-	title: "Ricoui Portfolio",
-	author: "Ricoui",
+	title: "The American Challenge",
+	author: "American Conference",
 	url: SITE_URL,
-	mail: "hello@ricoui.com",
-	// resume add your resume file path here: /assets/resume.pdf
-	resume: "https://ricoui.com/",
+	mail: "hello@journai.com",
+	// Still referenced by /about; left in place until that page is reworked.
+	resume: "#",
+	social: {
+		twitter: "https://x.com/American_Conf",
+		twitterName: "American_Conf",
+	},
 	utm: {
 		source: `${SITE_URL}`,
 		medium: "referral",
 		campaign: "navigation",
 	},
 	meta:{
-		title: "Ricoui Portfolio",
-		description: "I'm Rico, a web designer passionate about both design and code. Currently developing a personal product for the design community.",
-		keywords: "web designer, portfolio, design, code, personal website",
+		title: "The American Challenge — 30 Days, Built Like Training | Sam",
+		description: "Join student-athletes across the American Conference in a 30-day challenge for the stuff that's actually heavy off the field. Free, private, 2 minutes a day.",
+		keywords: "American Conference student-athlete challenge, Sam, student-athlete, 30 day challenge, SAAC, FAR",
 		image: `${SITE_URL}/og.jpg`,
-		twitterHandle: "ricouii",
-	},
-	// social links
-	social:{
-		twitter: "https://x.com/ricouii",
-		twitterName: "ricouii",
-		github: "https://github.com/ricocc",
-		blog: "https://ricoui.com",
-		xiaohongshu:"https://www.xiaohongshu.com/user/profile/5f2b6903000000000101f51f"
+		twitterHandle: "American_Conf",
 	},
 };
 

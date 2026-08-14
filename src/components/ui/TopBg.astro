@@ -1,2 +1,23 @@
+---
+/**
+ * Soft atmospheric wash behind the hero, replacing the old blue grid pattern.
+ * Bevel uses a very low-chroma gradient — barely perceptible, but it stops the
+ * page reading as flat.
+ */
+---
 
-  <svg aria-hidden="true" class="pointer-events-none absolute top-[-20%] inset-0 [z-index:-1] size-full h-[50%] fill-blue-500/50 stroke-blue-500/50 [mask-image:linear-gradient(to_bottom,_#ffffffad,_transparent)] z-2 opacity-[.30]"><defs><pattern id=":S1:" width="12" height="12" patternUnits="userSpaceOnUse" x="-1" y="-1"><path d="M.5 12V.5H12" fill="none" stroke-dasharray="0"></path></pattern></defs><rect width="100%" height="100%" stroke-width="0" fill="url(#:S1:)"></rect></svg>
+<div
+  aria-hidden="true"
+  class="pointer-events-none absolute inset-x-0 top-0 -z-10 h-[720px] overflow-hidden"
+>
+  <div
+    class="absolute -top-[40%] left-1/2 h-[900px] w-[1600px] -translate-x-1/2 rounded-[50%] opacity-70 blur-3xl"
+    style="background: radial-gradient(ellipse at center, color-mix(in oklab, var(--color-primary) 12%, transparent) 0%, transparent 65%);"
+  >
+  </div>
+  <div
+    class="absolute -top-[20%] left-[15%] h-[520px] w-[720px] rounded-[50%] opacity-50 blur-3xl"
+    style="background: radial-gradient(ellipse at center, color-mix(in oklab, var(--color-accent) 7%, transparent) 0%, transparent 70%);"
+  >
+  </div>
+</div>

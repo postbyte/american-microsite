@@ -1,19 +1,60 @@
 ---
 import AnimatedText from "@/components/ui/AnimatedText.astro";
-const { title, description } = Astro.props;
+
+interface Props {
+  /** Optional: existing callers (Explore, FeaturedWork) may pass undefined. */
+  title?: string;
+  description?: string;
+  /** Small uppercase label above the heading. */
+  eyebrow?: string;
+  /** "dark" forces light text when placed on the navy panel. */
+  tone?: "light" | "dark";
+  /** Bevel centres section intros; content below stays left-aligned. */
+  align?: "center" | "left";
+  class?: string;
+}
+
+const {
+  title = "",
+  description,
+  eyebrow,
+  tone = "light",
+  align = "center",
+  class: className = "",
+} = Astro.props;
+
+const isDark = tone === "dark";
+const isCentered = align === "center";
 ---
 
-<div class="relative z-20 w-full mx-auto mt-12 mb-16 text-center">
-  <h2
-    class="text-4xl font-brand text-center tracking-normal  sm:text-5xl"
-  >
+<div
+  class:list={[
+    "relative z-20 w-full",
+    isCentered ? "mx-auto max-w-3xl text-center" : "max-w-2xl text-left",
+    className,
+  ]}
+>
+  {
+    eyebrow && (
+      <p class:list={["text-eyebrow mb-5", isDark ? "text-accent-content/70" : "text-accent-text"]}>
+        {eyebrow}
+      </p>
+    )
+  }
+  <h2 class:list={["text-h2", isDark && "!text-primary-content"]}>
     <AnimatedText delay={0.2} stagger={0.08} content={title} />
   </h2>
-  {description && (
-    <div
-      class="mt-3 text-sm leading-6  sm:mt-4 lg:mt-6 sm:leading-7 lg:leading-8 sm:text-base lg:text-lg text-neutral-700 dark:text-neutral-300 max-w-full lg:max-w-3xl m-auto"
-    >
-      <AnimatedText delay={0.6} stagger={0.03} content={description} />
-    </div>
-  )}
+  {
+    description && (
+      <div
+        class:list={[
+          "text-lead mt-6",
+          isDark ? "text-primary-content/70" : "text-base-content/65",
+          isCentered && "mx-auto",
+        ]}
+      >
+        <AnimatedText delay={0.6} stagger={0.03} content={description} />
+      </div>
+    )
+  }
 </div>
