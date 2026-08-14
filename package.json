@@ -53,6 +53,7 @@
 		"@astrojs/rss": "^4.0.13",
 		"@astrojs/sitemap": "^3.6.0",
 		"@lucide/astro": "^0.546.0",
+		"@mesh-gradient/core": "2.0.2",
 		"@tailwindcss/vite": "^4.1.14",
 		"aos": "^2.3.4",
 		"matter-js": "^0.20.0",

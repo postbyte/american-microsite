@@ -20,6 +20,9 @@ importers:
       '@lucide/astro':
         specifier: ^0.546.0
         version: 0.546.0(astro@5.15.4(@types/node@24.6.0)(jiti@2.6.1)(lightningcss@1.30.1)(rollup@4.52.3)(typescript@5.9.2)(yaml@2.8.1))
+      '@mesh-gradient/core':
+        specifier: 2.0.2
+        version: 2.0.2
       '@tailwindcss/vite':
         specifier: ^4.1.14
         version: 4.1.14(vite@5.4.20(@types/node@24.6.0)(lightningcss@1.30.1))
@@ -682,6 +685,9 @@ packages:
 
   '@mdx-js/mdx@3.1.1':
     resolution: {integrity: sha512-f6ZO2ifpwAQIpzGWaBQT2TXxPv6z3RBzQKpVftEWN78Vl/YweF1uwussDx8ECAXVtr3Rs89fKyG9YlzUs9DyGQ==}
+
+  '@mesh-gradient/core@2.0.2':
+    resolution: {integrity: sha512-mqVu1NWiAaNBCOm7djseKXucNj3ds9mOKKXl0rS8glBg/UfSK1kle33K75HW316J/EwLim8GIx24DxYcQsNjdA==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -3054,6 +3060,8 @@ snapshots:
       vfile: 6.0.3
     transitivePeerDependencies:
       - supports-color
+
+  '@mesh-gradient/core@2.0.2': {}
 
   '@nodelib/fs.scandir@2.1.5':
     dependencies:

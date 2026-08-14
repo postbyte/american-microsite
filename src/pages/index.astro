@@ -1,4 +1,5 @@
 ---
+import { ChevronLeft, ChevronRight } from "@lucide/astro";
 import Layout from "@/layouts/Layout.astro";
 import Button from "@/components/ui/Button.astro";
 import AnimatedText from "@/components/ui/AnimatedText.astro";
@@ -40,7 +41,7 @@ const aos = {
   description="Join student-athletes across the American Conference in a 30-day challenge for the stuff that's actually heavy off the field. Free, private, 2 minutes a day."
   keywords="American Conference student-athlete challenge, Sam, student-athlete mental performance, The American Challenge"
 >
-  <!-- 1. Hero — centred, oversized, on the atmospheric wash from TopBg -->
+  <!-- 1. Hero — centred, oversized, on the animated mesh-gradient page wash -->
   <section class="site-container relative z-20 pt-16 pb-20 text-center md:pt-24">
     <p class="text-eyebrow text-accent-text">The American Challenge</p>
 
@@ -151,20 +152,6 @@ const aos = {
       </div>
     </div>
 
-    <!-- Paging anchors sit under the band, off the photography. -->
-    <div class="mt-5 flex justify-center gap-2">
-      {
-        dayCards.map((_, i) => (
-          <a
-            href={`#day-${i + 1}`}
-            class="btn btn-sm rounded-full border border-base-300 bg-base-100 shadow-none hover:bg-base-200"
-            aria-label={`Go to scenario ${i + 1}`}
-          >
-            {i + 1}
-          </a>
-        ))
-      }
-    </div>
   </div>
 
   <!-- 2. Proof Strip -->
@@ -287,6 +274,7 @@ const aos = {
     <div class="mt-16">
       <div class="carousel-fade overflow-hidden">
         <div
+          id="testimonial-carousel"
           class="carousel carousel-center w-full gap-6 px-1 pb-4"
           aria-label="Testimonials from student-athletes"
         >
@@ -313,20 +301,42 @@ const aos = {
         </div>
       </div>
       <div class="mt-5 flex justify-center gap-2">
-        {
-          testimonials.map((_, i) => (
-            <a
-              href={`#testimonial-${i + 1}`}
-              class="btn btn-sm rounded-full border border-base-300 bg-base-100 shadow-none hover:bg-base-200"
-              aria-label={`Go to testimonial ${i + 1}`}
-            >
-              {i + 1}
-            </a>
-          ))
-        }
+        <button
+          type="button"
+          data-carousel-prev="testimonial-carousel"
+          class="btn btn-sm btn-circle border border-base-300 bg-base-100 shadow-none hover:bg-base-200"
+          aria-label="Previous testimonial"
+        >
+          <ChevronLeft class="size-4" />
+        </button>
+        <button
+          type="button"
+          data-carousel-next="testimonial-carousel"
+          class="btn btn-sm btn-circle border border-base-300 bg-base-100 shadow-none hover:bg-base-200"
+          aria-label="Next testimonial"
+        >
+          <ChevronRight class="size-4" />
+        </button>
       </div>
     </div>
   </section>
+
+  <script>
+    // CSS-only scroll-snap carousel — these buttons just nudge native
+    // scroll by one viewport-worth of the track; no slide-index state to
+    // keep in sync since the carousel itself carries none.
+    for (const btn of document.querySelectorAll<HTMLButtonElement>(
+      "[data-carousel-prev], [data-carousel-next]",
+    )) {
+      const id = btn.dataset.carouselPrev ?? btn.dataset.carouselNext;
+      const track = id ? document.getElementById(id) : null;
+      if (!track) continue;
+      const dir = btn.hasAttribute("data-carousel-prev") ? -1 : 1;
+      btn.addEventListener("click", () => {
+        track.scrollBy({ left: dir * track.clientWidth * 0.9, behavior: "smooth" });
+      });
+    }
+  </script>
 
   <!-- 10. Private by design — the quiet pause, deliberately NOT dark -->
   <Panel id="privacy" class="relative">

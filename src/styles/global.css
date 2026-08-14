@@ -158,6 +158,28 @@
   --color-text-tertiary-dark: #94a3b8;
 }
 
+/*
+  Plain :root, deliberately NOT inside @theme above — Tailwind's @theme
+  block only keeps custom properties it can tie to a utility namespace and
+  silently drops the rest (bit us: --mesh-gradient-color-2/-3 vanished from
+  the compiled CSS while -1/-4 happened to survive). These are consumed at
+  runtime by @mesh-gradient/core's cssVariablesFallback option via plain
+  getComputedStyle (see page-gradient.ts), not by any Tailwind utility, so
+  they need a rule Tailwind won't touch.
+*/
+:root {
+  /*
+    Palette for pages/areas with no cover-derived palette — hex only, the
+    lib's color parser rejects oklch. Soft blue / orange / cream, kept as
+    low-chroma as TopBg's old blurred radials so it stays atmospheric
+    rather than a "designed" color block.
+  */
+  --mesh-gradient-color-1: #9ad3f3; /* sky blue, faded */
+  --mesh-gradient-color-2: #f9e3c8; /* soft orange, faded */
+  --mesh-gradient-color-3: #f8f1e4; /* cream */
+  --mesh-gradient-color-4: #eef2f6; /* pale blue-grey anchor, close to base-200 */
+}
+
 /* Text-safe red inverts on the dark theme. */
 [data-theme="acdark"] {
   --color-accent-text: #ff9d92;
@@ -293,6 +315,59 @@ html.dark {
       transparent
     );
   }
+
+  /*
+    Heavy film-grain overlay for the page-gradient canvas (page-gradient.ts),
+    generated client-side via an SVG data-URI <feTurbulence> so it needs no
+    build-time asset or extra request. Sits as a sibling to the canvas with
+    mix-blend-mode so it composites on top of the mesh.
+  */
+  .page-gradient-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.3' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 320px 320px;
+    mix-blend-mode: luminosity;
+    opacity: 0.5;
+  }
+}
+
+/*
+  Scroll-driven parallax for the fixed page-gradient canvas + noise. Fixed
+  positioning pins the layer to the viewport rather than the document, which
+  is what makes this trick possible: a scroll-timeline animation nudges it
+  by a CSS transform as the page scrolls, so instead of just sitting frozen
+  in place (or scrolling away like an absolutely-positioned layer would) it
+  drifts upward slower than the page — a soft parallax read. Browsers
+  without scroll-timeline support (older Safari, Firefox) fall back to a
+  plain fixed layer — still correct, just without the drift.
+*/
+@keyframes page-gradient-parallax {
+  to {
+    transform: translateY(-35%);
+  }
+}
+.page-gradient-parallax {
+  animation: page-gradient-parallax linear forwards;
+  animation-timeline: scroll(root);
+  /*
+    Percentages, not a fixed vh length — a fixed length (the old 0 200vh)
+    maps the whole keyframe to the first ~2 viewport-heights of scroll, so on
+    a long page the drift finishes almost immediately and then sits frozen
+    for everything after. Percentages track the full scrollable distance of
+    the page, whatever that ends up being, so the drift continues the entire
+    way down.
+  */
+  animation-range: 0 100%;
+}
+
+/*
+  The page-gradient wash (Layout.astro) is tuned for the light aclight
+  surface. Against acdark's navy-dominant surface it would read as a bright
+  cream patch unless knocked back — darken lets the mesh only ever deepen
+  the page tint, never lighten past it.
+*/
+[data-theme="acdark"] [data-gradient-stage][data-ready] {
+  mix-blend-mode: darken;
 }
 /*
   Text colour now comes from daisyUI's base-content, so it follows data-theme
