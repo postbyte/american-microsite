@@ -386,19 +386,33 @@
 
   // ── Helpers ────────────────────────────────────────────────────────
 
+  // Tailwind class names contain characters that are invalid in a raw CSS
+  // selector ("w-[58%]", "bg-base-100/55", "sm:flex"). Without escaping,
+  // document.querySelector() throws and kills whatever handler called it.
+  function cssEscape(s) {
+    if (window.CSS && typeof CSS.escape === 'function') return CSS.escape(s);
+    return String(s).replace(/[^a-zA-Z0-9_-]/g, '\\$&');
+  }
+
+  // Never let a malformed/stale selector throw out of an event handler.
+  function safeQuery(sel) {
+    if (!sel) return null;
+    try { return document.querySelector(sel); } catch (_) { return null; }
+  }
+
   function getSelector(el) {
-    if (el.id) return `#${el.id}`;
+    if (el.id) return `#${cssEscape(el.id)}`;
     const parts = [];
     let current = el;
     while (current && current !== document.body && current !== document.documentElement) {
       let selector = current.tagName.toLowerCase();
       if (current.id) {
-        parts.unshift(`#${current.id}`);
+        parts.unshift(`#${cssEscape(current.id)}`);
         break;
       }
       if (current.className && typeof current.className === 'string') {
         const classes = current.className.trim().split(/\s+/).filter(c => c).slice(0, 3);
-        if (classes.length) selector += '.' + classes.join('.');
+        if (classes.length) selector += '.' + classes.map(cssEscape).join('.');
       }
       // Add nth-child if ambiguous
       const parent = current.parentElement;
@@ -531,7 +545,7 @@
       marker.innerHTML = `<span class="av-marker-num">${ann.index}</span><span class="av-marker-x">&times;</span>`;
 
       // Position at the element's top-right
-      const el = ann.fullSelector ? document.querySelector(ann.fullSelector) : null;
+      const el = safeQuery(ann.fullSelector);
       if (el) {
         const rect = el.getBoundingClientRect();
         marker.style.top = (rect.top - 14) + 'px';
@@ -568,7 +582,7 @@
   function showAnnotationDetail(ann, opts) {
     const isNew = opts && opts.isNew;
     closePopover();
-    const el = ann.fullSelector ? document.querySelector(ann.fullSelector) : null;
+    const el = safeQuery(ann.fullSelector);
     const rect = el ? el.getBoundingClientRect() : { top: ann.y, left: ann.x, bottom: ann.y + 20, right: ann.x + 20 };
 
     annotatePopover = document.createElement('div');
@@ -675,7 +689,17 @@
         updateBadge();
         saveAnnotations();
       }
-      if (e.key === 'Escape') closePopover();
+      if (e.key === 'Escape') {
+        if (isNew) {
+          removeTextHighlight(ann);
+          const idx = annotations.indexOf(ann);
+          if (idx > -1) annotations.splice(idx, 1);
+          annotations.forEach((a, i) => a.index = i + 1);
+          saveAnnotations();
+        }
+        closePopover();
+        renderMarkers();
+      }
     });
 
     container.appendChild(annotatePopover);
@@ -877,7 +901,7 @@
     // If element already annotated, show its detail instead of duplicating
     const existing = annotations.find(a => {
       if (!a.fullSelector) return false;
-      const annotatedEl = document.querySelector(a.fullSelector);
+      const annotatedEl = safeQuery(a.fullSelector);
       return annotatedEl === el;
     });
     if (existing) {

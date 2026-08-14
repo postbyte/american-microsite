@@ -19,16 +19,100 @@
   ],
   "dayCards": [
     {
-      "quote": "Supposed to meet professors but don't know where to start.",
-      "reply": "Take five minutes with Sam after class and build your story. Your name, your goals, your schedule."
+      "quote": "Supposed to meet my profs. No idea what to say.",
+      "reply": "Bank the goodwill now, before the first travel week hits."
     },
     {
-      "quote": "Can't sleep after practice because my brain won't shut off.",
-      "reply": "Have Sam remind you to lay your clothes out, pack your training bag and write out tomorrow's intentions. Feel a difference in the mornings."
+      "quote": "I don't even know where the syllabus is.",
+      "reply": "Find the four things in there that actually decide your grade."
     },
     {
-      "quote": "Don't know anyone on the team or how to just say hi.",
-      "reply": "Have Sam walk you through the awkward, then set up the hang or just join them at the gym."
+      "quote": "I have a system. It's just three systems.",
+      "reply": "Pick one place. Mark every exam in it."
+    },
+    {
+      "quote": "My whole life is the team. Wouldn't know where to start.",
+      "reply": "Start one conversation outside the bubble. A name counts."
+    },
+    {
+      "quote": "Legs are dead. Brain won't shut off.",
+      "reply": "Trade the last ten minutes of scrolling for an unload."
+    },
+    {
+      "quote": "I don't know what's coming. That's the problem.",
+      "reply": "Run your week like film, before Wednesday runs you."
+    },
+    {
+      "quote": "I can give you three. After that I'm lying.",
+      "reply": "Name five things you'd defend about your game."
+    },
+    {
+      "quote": "I don't know who my advisor is. Genuinely.",
+      "reply": "Find the door and book that call."
+    },
+    {
+      "quote": "If I set a bedtime and blow it, that's a fail.",
+      "reply": "Run one night as an experiment. You can't fail it."
+    },
+    {
+      "quote": "Everyone's got four years of inside jokes. I've got none.",
+      "reply": "Find the one person who doesn't need the backstory."
+    },
+    {
+      "quote": "Showing up to another team's game alone is a lot.",
+      "reply": "Bring one teammate. Two people is a crew."
+    },
+    {
+      "quote": "Preseason didn't go the way I planned.",
+      "reply": "Replay it straight. Name what was actually in the way."
+    },
+    {
+      "quote": "On the field I know what I bring. Off it, no idea.",
+      "reply": "Name your one skill. Find where else it already shows up."
+    },
+    {
+      "quote": "Search what, though?",
+      "reply": "Follow one org. Let their posts find you all year."
+    },
+    {
+      "quote": "Practice ends at 7:45, class at 8. Breakfast is theoretical.",
+      "reply": "Fix the one meal that keeps breaking. Logistics, not rules."
+    },
+    {
+      "quote": "I think about calling home more than I call home.",
+      "reply": "Call the people who knew you before the sport did."
+    },
+    {
+      "quote": "If it's find the number, fine. If it's feelings, I'm out.",
+      "reply": "Locate the door. Whether or not you ever need it."
+    },
+    {
+      "quote": "My confidence is a direct feed from the depth chart.",
+      "reply": "Map where it's solid and what makes it shaky."
+    },
+    {
+      "quote": "Baseball is the identity. That's the plan.",
+      "reply": "Build the bench behind it. Nothing's ending."
+    },
+    {
+      "quote": "One class is getting away from me.",
+      "reply": "Re-run that syllabus before midterms decide it for you."
+    },
+    {
+      "quote": "Game stuff, always. Backpack? Chaos.",
+      "reply": "Point the gameday ritual at a regular Monday."
+    },
+    {
+      "quote": "It's been a month. Texting now is weird, right?",
+      "reply": "Send the text. A reply isn't required."
+    },
+    {
+      "quote": "Career fair, mid-season, as a senior. When exactly?",
+      "reply": "Make the one move your year actually calls for."
+    },
+    {
+      "quote": "Take my sport away and I go blank.",
+      "reply": "Build your story and goals. Then say it out loud once."
     }
   ],
   "sixJobs": [
@@ -36,42 +120,42 @@
       "title": "Compete like it's already happening",
       "description": "Confidence check-ins built for wherever your season actually is right now.",
       "example": "Identify one thing that's working and one thing that's getting in the way this week, not last year.",
-      "image": null,
+      "image": "/assets/home/1.jpg",
       "imageAlt": "Student-athlete checking in before a game"
     },
     {
       "title": "Run your scouting report",
       "description": "Introduce yourself to a professor. Book the advisor meeting. Know the week before it hits you.",
       "example": "A syllabus review, office hours scheduled, due dates, all in one pass.",
-      "image": null,
+      "image": "/assets/home/2.jpg",
       "imageAlt": "Student-athlete meeting a professor during office hours"
     },
     {
       "title": "Recruit yourself for what's next",
       "description": "A 30-second pitch that never mentions your sport. One message to someone whose work you're curious about.",
       "example": "Write it, then try it on a friend.",
-      "image": null,
+      "image": "/assets/home/3.jpg",
       "imageAlt": "Student-athlete writing notes about life after sport"
     },
     {
       "title": "Build your locker room",
       "description": "Meet an athlete from another team. Welcome the freshman who just got here.",
       "example": "Revisit someone from the welcome-back event and check in for real this time.",
-      "image": null,
+      "image": "/assets/home/4.jpg",
       "imageAlt": "Student-athletes from different teams talking together"
     },
     {
       "title": "Recover like it's part of training",
       "description": "Find your sports psych. Eat the third meal. Name the skill you give your team.",
       "example": "One proactive conversation about nerves or focus before you need it, not after.",
-      "image": null,
+      "image": "/assets/home/5.jpg",
       "imageAlt": "Student-athlete resting and recovering after training"
     },
     {
       "title": "Sleep like it's part of training",
       "description": "Lay tomorrow out tonight. Swap ten minutes of scrolling for a brain-dump.",
       "example": "Set a realistic lights-out time for tonight only. Report back how it went.",
-      "image": null,
+      "image": "/assets/home/6.jpg",
       "imageAlt": "Student-athlete laying out kit the night before"
     }
   ],
@@ -130,43 +214,39 @@
   "outcomeStats": [
     {
       "value": "73%",
-      "description": "said they felt more confident handling what's hard — in life, sport, and class."
+      "description": "Said they felt more confident handling what's hard — in life, sport, and class."
     },
     {
       "value": "71%",
-      "description": "said they reached out to the people in their lives more."
+      "description": "Said they reached out to the people in their lives more."
     },
     {
       "value": "68%",
-      "description": "made a real change — a new routine, a different way of prepping."
+      "description": "Made a real change, a new routine, a different way of prepping."
     },
     {
       "value": "40%→4%",
-      "description": "drop in career confusion among athletes who used it."
+      "description": "Drop in career confusion among athletes who used it."
     }
   ],
   "testimonials": [
     {
       "quote": "It didn't hand me a script. It asked what being on the bench was actually like — and that's when I actually started talking.",
-      "attribution": "American Conference beta athlete",
       "image": null,
       "imageAlt": "Student-athlete on the bench during a game"
     },
     {
       "quote": "It helped me find the words to bring something up with my coach that I'd been sitting on for weeks.",
-      "attribution": "American Conference beta athlete",
       "image": null,
       "imageAlt": "Student-athlete talking with a coach at practice"
     },
     {
       "quote": "I stopped measuring my timeline against everyone else's and started figuring out what I actually wanted next.",
-      "attribution": "American Conference beta athlete",
       "image": null,
       "imageAlt": "Student-athlete walking across campus between classes"
     },
     {
       "quote": "Five minutes, right after practice, before I forget what actually happened — that's when it works.",
-      "attribution": "American Conference beta athlete",
       "image": null,
       "imageAlt": "Student-athlete after practice in the locker room"
     }

@@ -263,6 +263,36 @@ html.dark {
       0 30px 60px -20px rgba(15, 23, 42, 0.12),
       0 10px 24px -10px rgba(15, 23, 42, 0.08);
   }
+
+  /*
+    Hero band grain. References the inline #heroGrain feTurbulence filter in
+    index.astro. The slight contrast/saturate bump compensates for the flatting
+    the overlay blend introduces.
+  */
+  .hero-grain {
+    filter: url("#heroGrain") contrast(1.06) saturate(1.05);
+  }
+
+  /*
+    Fades the carousel's leading/trailing cards into the photo behind them
+    instead of cutting off hard at the edge, in both scroll directions.
+  */
+  .carousel-fade {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
 }
 /*
   Text colour now comes from daisyUI's base-content, so it follows data-theme
