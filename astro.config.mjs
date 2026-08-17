@@ -26,7 +26,7 @@ export default defineConfig({
 
   server: {
     port: 5200,
-    allowedHosts: ["acquisition-pop-acknowledge-playing.trycloudflare.com"],
+    allowedHosts: ["yea-tapes-duplicate-source.trycloudflare.com"],
   },
 
   devToolbar: {
