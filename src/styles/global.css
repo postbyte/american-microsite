@@ -289,10 +289,12 @@ html.dark {
   /*
     Hero band grain. References the inline #heroGrain feTurbulence filter in
     index.astro. The slight contrast/saturate bump compensates for the flatting
-    the overlay blend introduces.
+    the overlay blend introduces. --hue-shift is set per-image (see photo
+    usages) to pull each photo's cast toward the same cool navy family
+    without flattening every photo to one identical hue.
   */
   .hero-grain {
-    filter: url("#heroGrain") contrast(1.06) saturate(1.05);
+    filter: url("#heroGrain") hue-rotate(var(--hue-shift, 0deg)) contrast(1.06) saturate(1.05);
   }
 
   /*

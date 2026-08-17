@@ -10,7 +10,7 @@
     },
     {
       "value": "2 min",
-      "label": "a check-in"
+      "label": "average time required"
     },
     {
       "value": "$1,500",
@@ -121,42 +121,48 @@
       "description": "Confidence check-ins built for wherever your season actually is right now.",
       "example": "Identify one thing that's working and one thing that's getting in the way this week, not last year.",
       "image": "/assets/home/1.jpg",
-      "imageAlt": "Student-athlete checking in before a game"
+      "imageAlt": "Student-athlete checking in before a game",
+      "hueShift": -20
     },
     {
       "title": "Run your scouting report",
       "description": "Introduce yourself to a professor. Book the advisor meeting. Know the week before it hits you.",
       "example": "A syllabus review, office hours scheduled, due dates, all in one pass.",
       "image": "/assets/home/2.jpg",
-      "imageAlt": "Student-athlete meeting a professor during office hours"
+      "imageAlt": "Student-athlete meeting a professor during office hours",
+      "hueShift": 20
     },
     {
       "title": "Recruit yourself for what's next",
       "description": "A 30-second pitch that never mentions your sport. One message to someone whose work you're curious about.",
       "example": "Write it, then try it on a friend.",
       "image": "/assets/home/3.jpg",
-      "imageAlt": "Student-athlete writing notes about life after sport"
+      "imageAlt": "Student-athlete writing notes about life after sport",
+      "hueShift": 0
     },
     {
       "title": "Build your locker room",
       "description": "Meet an athlete from another team. Welcome the freshman who just got here.",
       "example": "Revisit someone from the welcome-back event and check in for real this time.",
       "image": "/assets/home/4.jpg",
-      "imageAlt": "Student-athletes from different teams talking together"
+      "imageAlt": "Student-athletes from different teams talking together",
+      "hueShift": 0
     },
     {
       "title": "Recover like it's part of training",
       "description": "Find your sports psych. Eat the third meal. Name the skill you give your team.",
       "example": "One proactive conversation about nerves or focus before you need it, not after.",
       "image": "/assets/home/5.jpg",
-      "imageAlt": "Student-athlete resting and recovering after training"
+      "imageAlt": "Student-athlete resting and recovering after training",
+      "hueShift": 0
     },
     {
       "title": "Sleep like it's part of training",
       "description": "Lay tomorrow out tonight. Swap ten minutes of scrolling for a brain-dump.",
       "example": "Set a realistic lights-out time for tonight only. Report back how it went.",
       "image": "/assets/home/6.jpg",
-      "imageAlt": "Student-athlete laying out kit the night before"
+      "imageAlt": "Student-athlete laying out kit the night before",
+      "hueShift": 20
     }
   ],
   "howItWorks": [
@@ -172,34 +178,34 @@
     },
     {
       "num": "03",
-      "title": "Every check-in counts.",
+      "title": "Every challenge counts.",
       "description": "Daily participation earns your school credit toward the leaderboard."
     }
   ],
   "leaderboard": [
     {
       "rank": 1,
-      "school": "[School Name]",
+      "school": "Your school",
       "points": "2,140 pts"
     },
     {
       "rank": 2,
-      "school": "[School Name]",
+      "school": "…",
       "points": "1,860 pts"
     },
     {
       "rank": 3,
-      "school": "[School Name]",
+      "school": "…",
       "points": "1,705 pts"
     },
     {
       "rank": 4,
-      "school": "[School Name]",
+      "school": "…",
       "points": "1,522 pts"
     },
     {
       "rank": 5,
-      "school": "[School Name]",
+      "school": "…",
       "points": "1,340 pts"
     }
   ],
@@ -254,7 +260,7 @@
   "faq": [
     {
       "q": "Is this therapy?",
-      "a": "No. Sam is a daily conversation, not clinical care — and it'll point you to real support when something needs more than a conversation can give."
+      "a": "No. Sam is a daily conversation, not clinical care — and it'll point you to real support when something needs more than a conversation Sam can give."
     },
     {
       "q": "Will my coach see what I say?",
@@ -266,7 +272,7 @@
     },
     {
       "q": "Does my whole team have to sign up for it to count?",
-      "a": "No. Any American Conference student-athlete can join on their own, and every check-in still counts toward your school's total."
+      "a": "No. Any American Conference student-athlete can join on their own, and every challenge still counts toward your school's total."
     },
     {
       "q": "What happens after day 30?",
@@ -293,18 +299,6 @@
     {
       "name": "Privacy",
       "url": "#privacy"
-    },
-    {
-      "name": "For SAAC Reps",
-      "url": "#"
-    },
-    {
-      "name": "For FARs",
-      "url": "#"
-    },
-    {
-      "name": "For Athletic Directors",
-      "url": "#"
     }
   ]
 }

@@ -1,0 +1,123 @@
+---
+import { siteConfig } from "@/config/site";
+
+interface Props {
+  /** Unique per-instance id — the form can appear more than once on a page. */
+  id: string;
+  /** navy = light text on a dark panel (final CTA). light = dark text on a light background (hero). */
+  tone?: "navy" | "light";
+  /** lg = full-size, responsive stacked/inline. sm = compact, inline unless `stack` is set. */
+  size?: "lg" | "sm";
+  /** sm only: stack email/button full-width instead of inline. */
+  stack?: boolean;
+  buttonLabel?: string;
+  placeholder?: string;
+  class?: string;
+}
+
+const {
+  id,
+  tone = "navy",
+  size = "lg",
+  stack = false,
+  buttonLabel = "Sign Up",
+  placeholder = "you@school.edu",
+  class: className = "",
+} = Astro.props;
+
+const isLg = size === "lg";
+const isNavy = tone === "navy";
+
+const { accountId, formId } = siteConfig.mailerlite;
+const action = `https://assets.mailerlite.com/jsonp/${accountId}/forms/${formId}/subscribe`;
+const emailId = `ml-subscribe-email-${id}`;
+
+const wrapperClass = isLg ? "mt-10" : stack ? "w-full" : "flex items-center";
+const formLayoutClass = isLg
+  ? "mx-auto max-w-md flex-col gap-3 sm:flex-row sm:gap-2"
+  : stack
+    ? "w-full flex-col gap-2"
+    : "items-center gap-1.5";
+
+const inputToneClass = isNavy
+  ? "border-primary-content/25 bg-primary-content/10 text-primary-content placeholder:text-primary-content/50 focus:border-primary-content/50"
+  : "border-base-300 bg-base-100 text-base-content placeholder:text-base-content/50 focus:border-base-content/40";
+const inputSizeClass = isLg ? "input-lg w-full px-6" : `input-sm px-3.5 ${stack ? "w-full" : "w-32 md:w-40"}`;
+
+const buttonToneClass = isNavy ? "btn-accent" : "btn-primary";
+const buttonSizeClass = isLg ? "btn-lg" : `btn-sm ${stack ? "w-full justify-center" : ""}`;
+
+const successClass = isLg
+  ? `text-lead ${isNavy ? "text-primary-content/90" : "text-base-content/90"}`
+  : `text-sm ${isNavy ? "text-primary-content" : "text-base-content"}`;
+---
+
+<div class={`ml-subscribe ${wrapperClass} ${className}`} data-action={action}>
+  <form class={`ml-subscribe-form flex ${formLayoutClass}`}>
+    <label class="sr-only" for={emailId}>Email</label>
+    <input
+      id={emailId}
+      type="email"
+      name="email"
+      placeholder={placeholder}
+      autocomplete="email"
+      required
+      class={`input rounded-full focus:outline-none ${inputToneClass} ${inputSizeClass}`}
+    />
+    <button
+      type="submit"
+      class={`ml-subscribe-submit btn ${buttonToneClass} ${buttonSizeClass} shrink-0 rounded-full border-0 font-medium shadow-none`}
+    >
+      {buttonLabel}
+    </button>
+  </form>
+  <p class="ml-subscribe-error hidden text-xs text-error"></p>
+  <p class={`ml-subscribe-success hidden ${successClass}`}>Thanks — you're on the list.</p>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLDivElement>(".ml-subscribe").forEach((wrapper) => {
+    const action = wrapper.dataset.action;
+    const form = wrapper.querySelector<HTMLFormElement>(".ml-subscribe-form");
+    const emailInput = wrapper.querySelector<HTMLInputElement>('input[name="email"]');
+    const submit = wrapper.querySelector<HTMLButtonElement>(".ml-subscribe-submit");
+    const error = wrapper.querySelector<HTMLParagraphElement>(".ml-subscribe-error");
+    const success = wrapper.querySelector<HTMLParagraphElement>(".ml-subscribe-success");
+    if (!action || !form || !emailInput || !submit || !error || !success) return;
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      error.classList.add("hidden");
+      submit.disabled = true;
+      const originalLabel = submit.textContent;
+      submit.textContent = "Signing up…";
+
+      const params = new URLSearchParams({
+        "fields[email]": emailInput.value,
+        "ml-submit": "1",
+        anticsrf: "true",
+        ajax: "1",
+        guid: crypto.randomUUID(),
+      });
+
+      try {
+        const response = await fetch(`${action}?${params.toString()}`);
+        const data = await response.json();
+        if (data.success) {
+          form.classList.add("hidden");
+          success.classList.remove("hidden");
+          return;
+        }
+        const message = Object.values(data.errors?.fields ?? {}).flat()[0];
+        error.textContent = typeof message === "string" ? message : "Something went wrong. Please try again.";
+        error.classList.remove("hidden");
+      } catch {
+        error.textContent = "Something went wrong. Please try again.";
+        error.classList.remove("hidden");
+      } finally {
+        submit.disabled = false;
+        submit.textContent = originalLabel;
+      }
+    });
+  });
+</script>

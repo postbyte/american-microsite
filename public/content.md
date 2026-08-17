@@ -4,9 +4,10 @@ This file captures all user-facing copy from the microsite in page order. Edit h
 
 ## Meta
 
-- **Title:** The American Challenge — 30 Days, Built Like Training | Sam
-- **Description:** Join student-athletes across the American Conference in a 30-day challenge for the stuff that's actually heavy off the field. Free, private, 2 minutes a day.
-- **Keywords:** American Conference student-athlete challenge, Sam, student-athlete mental performance, The American Challenge
+- Title: The American Challenge — Your best semester yet
+- Description: Join student-athletes across the American Conference in a 30-day back-to-school performance coaching challenge. Free, private, 2 minutes a day.
+- Keywords: American Conference student-athlete challenge, Sam, student-athlete mental performance, The American Challenge
+
 
 ## Header Navigation
 
@@ -21,7 +22,7 @@ This file captures all user-facing copy from the microsite in page order. Edit h
 - Eyebrow: The American Challenge
 - H1: Your best semester yet
 - Subhead: Mental Performance Coaching for on and off the field.
-- CTA button: Sign Your School Up (links to `#final`)
+- CTA button: Sign Up
 - Microcopy under CTA: This is more than sports, this is about you.
 
 ## Hero Photo Band / Day Cards Carousel
@@ -32,19 +33,40 @@ Chat-style quote/reply pairs (24 total):
 
 1. "Supposed to meet my profs. No idea what to say." → "Bank the goodwill now, before the first travel week hits."
 2. "I don't even know where the syllabus is." → "Find the four things in there that actually decide your grade."
-3. *(remaining 22 pairs live in `src/collections/challenge.json` → `dayCards`; edit there for the full list)*
+3. "I have a system. It's just three systems." → "Pick one place. Mark every exam in it."
+4. "My whole life is the team. Wouldn't know where to start." → "Start one conversation outside the bubble. A name counts."
+5. "Legs are dead. Brain won't shut off." → "Trade the last ten minutes of scrolling for an unload."
+6. "I don't know what's coming. That's the problem." → "Run your week like film, before Wednesday runs you."
+7. "I can give you three. After that I'm lying." → "Name five things you'd defend about your game."
+8. "I don't know who my advisor is. Genuinely." → "Find the door and book that call."
+9. "If I set a bedtime and blow it, that's a fail." → "Run one night as an experiment. You can't fail it."
+10. "Everyone's got four years of inside jokes. I've got none." → "Find the one person who doesn't need the backstory."
+11. "Showing up to another team's game alone is a lot." → "Bring one teammate. Two people is a crew."
+12. "Preseason didn't go the way I planned." → "Replay it straight. Name what was actually in the way."
+13. "On the field I know what I bring. Off it, no idea." → "Name your one skill. Find where else it already shows up."
+14. "Search what, though?" → "Follow one org. Let their posts find you all year."
+15. "Practice ends at 7:45, class at 8. Breakfast is theoretical." → "Fix the one meal that keeps breaking. Logistics, not rules."
+16. "I think about calling home more than I call home." → "Call the people who knew you before the sport did."
+17. "If it's find the number, fine. If it's feelings, I'm out." → "Locate the door. Whether or not you ever need it."
+18. "My confidence is a direct feed from the depth chart." → "Map where it's solid and what makes it shaky."
+19. "Baseball is the identity. That's the plan." → "Build the bench behind it. Nothing's ending."
+20. "One class is getting away from me." → "Re-run that syllabus before midterms decide it for you."
+21. "Game stuff, always. Backpack? Chaos." → "Point the gameday ritual at a regular Monday."
+22. "It's been a month. Texting now is weird, right?" → "Send the text. A reply isn't required."
+23. "Career fair, mid-season, as a senior. When exactly?" → "Make the one move your year actually calls for."
+24. "Take my sport away and I go blank." → "Build your story and goals. Then say it out loud once."
 
 ## Proof Strip
 
 - 15 — American Conference schools
 - 30 — days, one challenge a day
-- 2 min — a check-in
+- 2 min — average time required
 - $1,500 — to the winning SAAC
 
 ## Six Things Actually Worth Training For
 
-- Section title: Six things actually worth training for.
-- Section description: Every challenge maps to one of these. None of them are about being fixed.
+- Section title: Six things actually worth tackling this semester.
+- Section description: Every challenge is designed to make a quick impact.
 
 1. **Compete like it's already happening** — Confidence check-ins built for wherever your season actually is right now.
    Example: Identify one thing that's working and one thing that's getting in the way this week, not last year.
@@ -58,23 +80,21 @@ Chat-style quote/reply pairs (24 total):
 
 - Section title: How it works.
 
-1. **Download Sam.** — Free for American Conference student-athletes.
+1. **Download Sam.** — Sam is an AI mentor for athletes who grows with you and is free for American Conference student-athletes.
 2. **Take on one challenge a day.** — September 8 to October 8. Sleep, confidence, classes, your role on the team, what comes after sport.
-3. **Every check-in counts.** — Daily participation earns your school credit toward the leaderboard.
+3. **Every challenge counts.** — Daily participation earns your school credit toward the leaderboard.
 
 ## Leaderboard Panel (navy)
 
 - H2: Your school is in a race.
-- Body: Every check-in is a point for your school. The school that participates the most wins $1,500 for its SAAC. You don't need your whole team to sign up to start climbing — but it helps. Go recruit.
+- Body: Every challenge you complete is a point for your school. The school that participates the most wins $1,500 for its SAAC. You don't need your whole team to sign up to start climbing — but it helps. Go recruit.
 - CTA button: Check the Leaderboard (links to `#leaderboard`)
-- Leaderboard rows *(placeholder data — not final copy)*: "[School Name]" x5 with points (2,140 / 1,860 / 1,705 / 1,522 / 1,340 pts)
+- Leaderboard rows: "Your school" (rank 1, 2,140 pts) then "…" x4 (1,860 / 1,705 / 1,522 / 1,340 pts) — points still placeholder data
 
 ## Built To Actually Listen
 
 - Section title: Built to actually listen.
-- Section description: Most advice hands you a checklist before it knows what's wrong. Sam asks what's actually going on first and what's actually eating at you. That's where the real conversations start. That's not a script. That's what a good conversation with someone who's paying attention sounds like.
-
-  > Note: source copy currently reads "That where the real conversations start" — likely a typo for "That's where."
+- Section description: Most advice hands you a checklist before it knows what's wrong. Sam is built by former American Conference athletes, neuroscientists, psychologists, and coaches specifically for American Conference athletes. It asks what's actually going on first, then prompts concrete actions you can take to shift your mindset and behaviors.
 
 **The old way:**
 - Try a gratitude journal
@@ -109,14 +129,14 @@ Chat-style quote/reply pairs (24 total):
 ## Privacy Panel (navy)
 
 - H2: Private by design.
-- Body: What you tell Sam stays with Sam, unless you choose to share it. No coach sees your check-ins. No default reporting to your athletic department. Disclosure happens when you decide it should — not before. Sam is not therapy, and it always says so plainly.
+- Body: What you tell Sam stays with Sam, unless you choose to share it. No coach sees your conversations. No default reporting to your athletic department. Disclosure happens when you decide it should — not before. Sam is not therapy, and it always says so plainly.
 
 ## FAQ
 
 - Section title: Questions.
 
 **Is this therapy?**
-No. Sam is a daily conversation, not clinical care — and it'll point you to real support when something needs more than a conversation can give.
+No. Sam is a daily conversation, not clinical care — and it'll point you to real support when something needs more than a conversation Sam can give.
 
 **Will my coach see what I say?**
 No. Private by default. You choose what, if anything, gets shared.
@@ -125,7 +145,7 @@ No. Private by default. You choose what, if anything, gets shared.
 Nothing happens. Jump back in whenever — there's no penalty and no guilt trip.
 
 **Does my whole team have to sign up for it to count?**
-No. Any American Conference student-athlete can join on their own, and every check-in still counts toward your school's total.
+No. Any American Conference student-athlete can join on their own, and every challenge still counts toward your school's total.
 
 **What happens after day 30?**
 Powerful Minds Week follows immediately — a week built for reflection, not an ending.

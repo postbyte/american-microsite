@@ -20,18 +20,7 @@ const { footerLinks } = challenge;
       <nav class="sm:ml-auto">
         <h2 class="footer-title text-base-content/40">Program</h2>
         {
-          footerLinks.slice(0, 4).map((link) => (
-            <a href={link.url} class="link link-hover text-base-content/70">
-              {link.name}
-            </a>
-          ))
-        }
-      </nav>
-
-      <nav>
-        <h2 class="footer-title text-base-content/40">For staff</h2>
-        {
-          footerLinks.slice(4).map((link) => (
+          footerLinks.map((link) => (
             <a href={link.url} class="link link-hover text-base-content/70">
               {link.name}
             </a>

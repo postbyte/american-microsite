@@ -1,7 +1,6 @@
 ---
 import { ChevronLeft, ChevronRight } from "@lucide/astro";
 import Layout from "@/layouts/Layout.astro";
-import Button from "@/components/ui/Button.astro";
 import AnimatedText from "@/components/ui/AnimatedText.astro";
 import SectionHeader from "@/components/elements/SectionHeader.astro";
 
@@ -13,6 +12,7 @@ import Panel from "@/components/challenge/Panel.astro";
 import Leaderboard from "@/components/challenge/Leaderboard.astro";
 import StatFigure from "@/components/challenge/StatFigure.astro";
 import FaqAccordion from "@/components/challenge/FaqAccordion.astro";
+import SubscribeForm from "@/components/challenge/SubscribeForm.astro";
 
 import challenge from "@/collections/challenge.json";
 
@@ -38,7 +38,7 @@ const aos = {
 
 <Layout
   title="The American Challenge — 30 Days, Built Like Training | Sam"
-  description="Join student-athletes across the American Conference in a 30-day challenge for the stuff that's actually heavy off the field. Free, private, 2 minutes a day."
+  description="Join student-athletes across the American Conference in a 30-day back-to-school performance coaching challenge. Free, private, 2 minutes a day."
   keywords="American Conference student-athlete challenge, Sam, student-athlete mental performance, The American Challenge"
 >
   <!-- 1. Hero — centred, oversized, on the animated mesh-gradient page wash -->
@@ -72,7 +72,7 @@ const aos = {
       data-aos-duration="500"
       data-aos-once="true"
     >
-      <Button url="#final" type="fill" size="lg">Sign Your School Up</Button>
+      <SubscribeForm id="hero" tone="light" class="!mt-0" />
       <p class="text-sm text-base-content/55">
         This is more than sports, this is about you.
       </p>
@@ -111,6 +111,7 @@ const aos = {
         src="/assets/home/cover.jpg"
         alt="Student-athlete mid-effort, American Conference campus"
         class="hero-grain absolute inset-0 h-full w-full scale-[1.35] object-cover object-[38%_62%]"
+        style="--hue-shift: -20deg"
         width="5000"
         height="5000"
         loading="eager"
@@ -170,8 +171,8 @@ const aos = {
   <!-- 4. Six things actually worth training for -->
   <section id="challenges" class="site-container section-y" {...aos}>
     <SectionHeader
-      title="Six things actually worth training for."
-      description="Every challenge maps to one of these. None of them are about being fixed."
+      title="Six things actually worth tackling this semester."
+      description="Every challenge is designed to make a quick impact."
     />
     <div class="mt-16 flex flex-col gap-6">
       {
@@ -181,6 +182,7 @@ const aos = {
             description={job.description}
             image={job.image}
             imageAlt={job.imageAlt}
+            hueShift={job.hueShift}
           />
         ))
       }
@@ -209,9 +211,10 @@ const aos = {
       <div {...aos}>
         <h2 class="text-h2 !text-primary-content">Your school is in a race.</h2>
         <p class="text-lead mt-6 text-primary-content/75">
-          Every check-in is a point for your school. The school that
-          participates the most wins $1,500 for its SAAC. You don't need your
-          whole team to sign up to start climbing — but it helps. Go recruit.
+          Every challenge you complete is a point for your school. The school
+          that participates the most wins $1,500 for its SAAC. You don't need
+          your whole team to sign up to start climbing — but it helps. Go
+          recruit.
         </p>
         <a
           href="#leaderboard"
@@ -230,7 +233,7 @@ const aos = {
   <section class="site-container section-y" {...aos}>
     <SectionHeader
       title="Built to actually listen."
-      description="Most advice hands you a checklist before it knows what's wrong. Sam asks what's actually going on first and what's actually eating at you. That where the real conversations start. That's not a script. That's what a good conversation with someone who's paying attention sounds like."
+      description="Most advice hands you a checklist before it knows what's wrong. Sam is built by former American Conference athletes, neuroscientists, psychologists, and coaches specifically for American Conference athletes. It asks what's actually going on first, then prompts concrete actions you can take to shift your mindset and behaviors."
     />
     <div class="mt-16 grid items-stretch gap-6 md:grid-cols-5">
       <div class="card border border-base-300 bg-base-100 shadow-diffuse md:col-span-2">
@@ -345,6 +348,7 @@ const aos = {
       alt=""
       aria-hidden="true"
       class="hero-grain absolute inset-0 h-full w-full scale-125 object-cover"
+      style="--hue-shift: -20deg"
       loading="lazy"
     />
     <div class="absolute inset-0 bg-base-100/45" />
@@ -355,7 +359,7 @@ const aos = {
       <h2 class="text-h2">Private by design.</h2>
       <p class="text-lead mt-7 text-base-content/65">
         What you tell Sam stays with Sam, unless you choose to share it. No
-        coach sees your check-ins. No default reporting to your athletic
+        coach sees your conversations. No default reporting to your athletic
         department. Disclosure happens when you decide it should — not before.
         Sam is not therapy, and it always says so plainly.
       </p>
@@ -379,12 +383,7 @@ const aos = {
       <p class="text-lead mt-6 text-primary-content/75">
         Early access opens August 18. The challenge runs September 8 – October 8.
       </p>
-      <a
-        href="#final"
-        class="btn btn-accent btn-lg mt-10 rounded-full border-0 font-medium shadow-none"
-      >
-        Sign Your School Up
-      </a>
+      <SubscribeForm id="final" buttonLabel="Sign Your School Up" />
     </div>
   </Panel>
 </Layout>

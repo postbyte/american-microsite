@@ -18,9 +18,13 @@ export const siteConfig = {
 		medium: "referral",
 		campaign: "navigation",
 	},
+	mailerlite: {
+		accountId: import.meta.env.PUBLIC_MAILERLITE_ACCOUNT_ID || "2472425",
+		formId: import.meta.env.PUBLIC_MAILERLITE_FORM_ID || "196078007547332293",
+	},
 	meta:{
 		title: "The American Challenge — 30 Days, Built Like Training | Sam",
-		description: "Join student-athletes across the American Conference in a 30-day challenge for the stuff that's actually heavy off the field. Free, private, 2 minutes a day.",
+		description: "Join student-athletes across the American Conference in a 30-day back-to-school performance coaching challenge. Free, private, 2 minutes a day.",
 		keywords: "American Conference student-athlete challenge, Sam, student-athlete, 30 day challenge, SAAC, FAR",
 		image: `${SITE_URL}/og.jpg`,
 		twitterHandle: "American_Conf",

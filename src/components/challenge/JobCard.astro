@@ -5,9 +5,11 @@ interface Props {
   /** Forthcoming photo. Renders a placeholder figure until supplied. */
   image?: string | null;
   imageAlt?: string;
+  /** Degrees to hue-rotate the photo toward the site's cool navy cast. */
+  hueShift?: number;
 }
 
-const { title, description, image = null, imageAlt = "" } = Astro.props;
+const { title, description, image = null, imageAlt = "", hueShift = 0 } = Astro.props;
 ---
 
 <!--
@@ -41,6 +43,7 @@ const { title, description, image = null, imageAlt = "" } = Astro.props;
           src={image}
           alt={imageAlt}
           class="hero-grain absolute inset-0 h-full w-full scale-125 object-cover"
+          style={`--hue-shift: ${hueShift}deg`}
           loading="lazy"
         />
       ) : (
