@@ -5,6 +5,7 @@ import AnimatedText from "@/components/ui/AnimatedText.astro";
 import SectionHeader from "@/components/elements/SectionHeader.astro";
 
 import ProofStrip from "@/components/challenge/ProofStrip.astro";
+import HeroChatLoop from "@/components/challenge/HeroChatLoop.astro";
 import ChatCard from "@/components/challenge/ChatCard.astro";
 import JobCard from "@/components/challenge/JobCard.astro";
 import StepCard from "@/components/challenge/StepCard.astro";
@@ -125,31 +126,19 @@ const aos = {
         narrower than the track so neighbouring slides peek in at both edges.
         Scroll-snaps natively — daisyUI's carousel is CSS-only.
       -->
-      <div class="absolute inset-0 flex items-center gap-6 px-6 sm:px-10">
-        <div class="hidden w-1/3 shrink-0 md:block">
+      <div
+        class="relative flex flex-col items-center gap-6 px-6 py-8 sm:px-10 md:absolute md:inset-0 md:flex-row md:py-0"
+      >
+        <div class="w-full shrink-0 md:w-1/3">
           <SectionHeader
             title="This is what a month of locking in looks like."
             align="left"
             class="!max-w-none [&_h2]:!text-white"
           />
         </div>
-        <!-- <div class="carousel-fade min-w-0 flex-1 overflow-hidden">
-          <div
-            class="carousel carousel-center w-full space-x-4 p-4 sm:space-x-6 sm:p-6"
-            aria-label="What a day looks like"
-          >
-            {
-              dayCards.map((card, i) => (
-                <div
-                  id={`day-${i + 1}`}
-                  class="carousel-item w-[58%] sm:w-[34%] lg:w-[30%]"
-                >
-                  <ChatCard quote={card.quote} reply={card.reply} variant="glass" />
-                </div>
-              ))
-            }
-          </div>
-        </div> -->
+        <div class="w-full min-w-0 md:flex-1">
+          <HeroChatLoop />
+        </div>
       </div>
     </div>
 
