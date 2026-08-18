@@ -7,13 +7,13 @@ const { stats } = Astro.props;
 ---
 
 <!-- daisyUI stats. Sits directly on the page tint, no card, no border. -->
-<div class="flex justify-center">
+<div class="flex">
   <div
-    class="stats stats-vertical sm:stats-horizontal bg-base-100 border border-base-300 shadow-diffuse"
+    class="stats stats-vertical sm:stats-horizontal w-full bg-base-100 border border-base-300 shadow-diffuse"
   >
     {
       stats.map((stat) => (
-        <div class="stat w-40 place-items-center gap-1 px-8 py-6">
+        <div class="stat flex-1 place-items-center gap-1 px-8 py-6">
           <div class="stat-value text-3xl font-semibold tracking-tight text-primary">
             {stat.value}
           </div>
