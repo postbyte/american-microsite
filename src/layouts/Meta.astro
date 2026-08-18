@@ -14,7 +14,7 @@ const {
   description,
   keywords = "",
   url = siteConfig.url, //
-  ogImage = "/og.jpg",
+  ogImage = siteConfig.meta.image,
   twitterHandle = siteConfig.social.twitterName || '',
 } = Astro.props;
 ---

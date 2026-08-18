@@ -26,7 +26,7 @@ export const siteConfig = {
 		title: "The American Challenge — 30 Days, Built Like Training | Sam",
 		description: "Join student-athletes across the American Conference in a 30-day back-to-school performance coaching challenge. Free, private, 2 minutes a day.",
 		keywords: "American Conference student-athlete challenge, Sam, student-athlete, 30 day challenge, SAAC, FAR",
-		image: `${SITE_URL}/og.jpg`,
+		image: new URL('og.jpg', SITE_URL).toString(),
 		twitterHandle: "American_Conf",
 	},
 };
