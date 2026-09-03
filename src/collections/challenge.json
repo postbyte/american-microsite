@@ -6,7 +6,7 @@
     },
     {
       "value": "30",
-      "label": "days, one challenge a day"
+      "label": "challenges, at your pace"
     },
     {
       "value": "2 min",
@@ -173,8 +173,8 @@
     },
     {
       "num": "02",
-      "title": "Take on one challenge a day.",
-      "description": "September 8 to October 8. Sleep, confidence, classes, your role on the team, what comes after sport."
+      "title": "Complete quick challenges on your phone",
+      "description": "The challenge launches September 8, and enrollment stays open through September 29. Sleep, confidence, classes, your role on the team, life after sport—Sam meets you where you are and helps you take one useful step."
     },
     {
       "num": "03",
@@ -273,10 +273,6 @@
     {
       "q": "Does my whole team have to sign up for it to count?",
       "a": "No. Any American Conference student-athlete can join on their own, and every challenge still counts toward your school's total."
-    },
-    {
-      "q": "What happens after day 30?",
-      "a": "Powerful Minds Week follows immediately — a week built for reflection, not an ending."
     }
   ],
   "footerLinks": [
