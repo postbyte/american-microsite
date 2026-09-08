@@ -5,7 +5,7 @@ import AnimatedText from "@/components/ui/AnimatedText.astro";
 import SectionHeader from "@/components/elements/SectionHeader.astro";
 
 import ProofStrip from "@/components/challenge/ProofStrip.astro";
-import HeroChatLoop from "@/components/challenge/HeroChatLoop.astro";
+import FeatureCarousel from "@/components/challenge/FeatureCarousel.astro";
 import ChatCard from "@/components/challenge/ChatCard.astro";
 import JobCard from "@/components/challenge/JobCard.astro";
 import StepCard from "@/components/challenge/StepCard.astro";
@@ -115,26 +115,36 @@ const aos = {
   <!-- Full-bleed photography band. Bevel puts imagery edge-to-edge, not in a card. -->
   <div class="px-3 sm:px-4 lg:px-6" {...aos}>
     <div
-      class="relative mx-auto flex min-h-[32rem] w-full max-w-[1600px] items-center justify-center overflow-hidden rounded-[2rem] bg-base-300/60 shadow-diffuse lg:min-h-0 lg:aspect-[2.6/1]"
+      class="relative mx-auto flex min-h-[32rem] w-full max-w-[1600px] items-center justify-center rounded-[2rem] bg-base-300/60 shadow-diffuse lg:min-h-0 lg:aspect-[2.6/1]"
     >
-      <!-- scale + object-cover crops tight into the 5000x5000 source -->
-      <img
-        src="/assets/home/cover.jpg"
-        alt="Student-athlete mid-effort, American Conference campus"
-        class="hero-grain absolute inset-0 h-full w-full scale-[1.35] object-cover object-[38%_62%]"
-        style="--hue-shift: -20deg"
-        width="5000"
-        height="5000"
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
+      <!--
+        The photo is clipped by its own wrapper rather than by the band, so the
+        band itself can stay unclipped and let the phone break past its edges.
+      -->
+      <div class="absolute inset-0 overflow-hidden rounded-[2rem]">
+        <!-- scale + object-cover crops tight into the 5000x5000 source -->
+        <img
+          src="/assets/home/cover.jpg"
+          alt="Student-athlete mid-effort, American Conference campus"
+          class="hero-grain absolute inset-0 h-full w-full scale-[1.35] object-cover object-[38%_62%]"
+          style="--hue-shift: -20deg"
+          width="5000"
+          height="5000"
+          loading="eager"
+          decoding="async"
+          fetchpriority="high"
+        />
+        <!--
+          Scrim, not a filter change: .hero-grain is shared with JobCard, so
+          this band gets its own darkening to hold the white carousel copy.
+        -->
+        <div class="absolute inset-0 bg-black/40"></div>
+      </div>
 
       <!--
-        Carousel overlaid on the photography, using daisyUI's full-bleed
-        pattern: carousel-center with space-x/p rather than gap, and items
-        narrower than the track so neighbouring slides peek in at both edges.
-        Scroll-snaps natively — daisyUI's carousel is CSS-only.
+        Headline plus the app feature carousel, overlaid on the photography.
+        The carousel auto-rotates through four screenshots until the reader
+        clicks a feature, at which point it holds wherever they put it.
       -->
       <div
         class="relative flex flex-col items-center gap-6 px-6 py-8 sm:px-10 md:absolute md:inset-0 md:flex-row md:py-0"
@@ -147,7 +157,7 @@ const aos = {
           />
         </div>
         <div class="w-full min-w-0 md:flex-1">
-          <HeroChatLoop />
+          <FeatureCarousel />
         </div>
       </div>
     </div>

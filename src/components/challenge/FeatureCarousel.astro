@@ -1,0 +1,237 @@
+---
+import { Image } from "astro:assets";
+
+/*
+  App screenshots live in src/assets/app/ (not public/) so they run through
+  Astro's asset pipeline and ship as resized WebP rather than raw exports.
+  Globbed rather than imported by name so a missing file degrades to a skipped
+  slide instead of a build error.
+
+  The sources are PNGs with an alpha channel — the device frame is cut out so
+  the drop shadow traces the phone rather than a rectangle. Keep the output
+  format alpha-capable; re-encoding these to JPEG would fill the corners in.
+*/
+const shots = import.meta.glob<{ default: ImageMetadata }>(
+  "../../assets/app/*.{png,jpg,jpeg,webp}",
+  { eager: true },
+);
+
+const shotFor = (name: string) =>
+  Object.entries(shots).find(([path]) => path.split("/").pop()?.split(".")[0] === name)
+    ?.[1].default;
+
+const features = [
+  {
+    name: "home",
+    label: "Home",
+    caption: "Sam is always around for AI performance mentoring",
+    alt: "The app home screen, with Sam saying “Afternoon. I'm around.” above the Back-to-School Challenge card",
+  },
+  {
+    name: "challenges",
+    label: "Challenges",
+    caption: "Participate in targeted challenges to get the most of your semester",
+    alt: "The challenges screen, with a recommended scouting-report challenge and a grid of School, People, Recovery and Confidence challenges",
+  },
+  {
+    name: "takeaways",
+    label: "Takeaways",
+    caption: "Capture a snapshot of your chat session to act on",
+    alt: "The takeaways screen showing a saved card pulled from a chat session",
+  },
+  {
+    name: "chat",
+    label: "Chat",
+    caption: "Sam is a thought partner for navigating school and athletics",
+    alt: "A chat thread with Sam talking through winding down before sleep",
+  },
+]
+  .map((f) => ({ ...f, img: shotFor(f.name) }))
+  .filter((f): f is typeof f & { img: ImageMetadata } => Boolean(f.img));
+---
+
+{
+  features.length > 0 && (
+    <div
+      class="feature-carousel flex w-full flex-col items-center gap-7 md:flex-row md:justify-center md:gap-8 lg:gap-12"
+      data-dwell="4500"
+    >
+      <div
+        role="tablist"
+        aria-label="App features"
+        aria-orientation="vertical"
+        class="order-2 flex w-full max-w-sm flex-col gap-0.5 md:order-1 md:max-w-[20rem]"
+      >
+        {features.map((f, i) => (
+          <button
+            type="button"
+            role="tab"
+            id={`feature-tab-${f.name}`}
+            aria-controls={`feature-panel-${f.name}`}
+            aria-selected={i === 0}
+            tabindex={i === 0 ? 0 : -1}
+            data-index={i}
+            class="feature-tab w-full cursor-pointer rounded-xl px-3.5 py-2.5 text-left transition-colors duration-300 hover:bg-white/5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white/80 aria-selected:bg-white/5"
+          >
+            <span class="feature-tab-label block text-lg font-medium text-white/45 transition-colors duration-300 group-hover:text-white/70 md:text-xl">
+              {f.label}
+            </span>
+            {/* 0fr -> 1fr collapses the caption without a fixed height. */}
+            <span class="feature-tab-body grid grid-rows-[0fr] transition-[grid-template-rows] duration-500 ease-out">
+              <span class="overflow-hidden">
+                <span class="block pt-1 text-base leading-relaxed text-white/70 md:text-lg">
+                  {f.caption}
+                </span>
+                <span class="mt-2.5 block h-px w-full bg-white/15">
+                  <span class="feature-tab-progress block h-px w-0 bg-white/70" />
+                </span>
+              </span>
+            </span>
+          </button>
+        ))}
+      </div>
+
+      {/*
+        Screenshots already include the device frame, so no bezel is drawn here.
+        From md up the phone is deliberately taller than the band it sits in and
+        breaks past the top and bottom edges — the band no longer clips.
+      */}
+      <div class="relative order-1 aspect-[538/1080] w-[230px] shrink-0 sm:w-[250px] md:order-2 md:w-[280px] lg:w-[330px] xl:w-[380px]">
+        {features.map((f, i) => (
+          <div
+            id={`feature-panel-${f.name}`}
+            role="tabpanel"
+            aria-labelledby={`feature-tab-${f.name}`}
+            aria-hidden={i !== 0}
+            data-index={i}
+            class="feature-panel absolute inset-0"
+            style={`opacity: ${i === 0 ? 1 : 0}`}
+          >
+            <Image
+              src={f.img}
+              alt={f.alt}
+              width={538}
+              quality={85}
+              format="webp"
+              loading={i === 0 ? "eager" : "lazy"}
+              decoding="async"
+              class="h-full w-full object-contain drop-shadow-2xl"
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .feature-tab[aria-selected="true"] .feature-tab-label {
+    color: #fff;
+  }
+  .feature-tab[aria-selected="true"] .feature-tab-body {
+    grid-template-rows: 1fr;
+  }
+</style>
+
+<script>
+  import { animate } from "motion";
+
+  const root = document.querySelector<HTMLElement>(".feature-carousel");
+  const tabs = root ? Array.from(root.querySelectorAll<HTMLElement>(".feature-tab")) : [];
+  const panels = root ? Array.from(root.querySelectorAll<HTMLElement>(".feature-panel")) : [];
+
+  if (root && tabs.length > 1 && tabs.length === panels.length) {
+    const dwell = Number(root.dataset.dwell ?? 4500);
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    let current = 0;
+    let visible = false;
+    // Set once a tab is clicked or arrowed to: a reader who took control
+    // shouldn't have the slide pulled out from under them.
+    let userTookOver = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    let progress: { stop: () => void } | undefined;
+
+    const setActive = (next: number, animated: boolean) => {
+      if (next === current) return;
+      const from = panels[current];
+      const to = panels[next];
+
+      if (animated) {
+        animate(from, { opacity: [1, 0] }, { duration: 0.45, ease: "easeInOut" });
+        animate(to, { opacity: [0, 1] }, { duration: 0.45, ease: "easeInOut" });
+      } else {
+        from.style.opacity = "0";
+        to.style.opacity = "1";
+      }
+
+      from.setAttribute("aria-hidden", "true");
+      to.setAttribute("aria-hidden", "false");
+      tabs[current].setAttribute("aria-selected", "false");
+      tabs[current].tabIndex = -1;
+      tabs[next].setAttribute("aria-selected", "true");
+      tabs[next].tabIndex = 0;
+      current = next;
+    };
+
+    const clearTimers = () => {
+      if (timer) clearTimeout(timer);
+      timer = undefined;
+      progress?.stop();
+      progress = undefined;
+      for (const bar of root.querySelectorAll<HTMLElement>(".feature-tab-progress")) {
+        bar.style.width = "";
+      }
+    };
+
+    // Drains the active tab's hairline over the dwell, then advances.
+    const scheduleNext = () => {
+      clearTimers();
+      const bar = tabs[current].querySelector<HTMLElement>(".feature-tab-progress");
+      if (bar) {
+        progress = animate(bar, { width: ["0%", "100%"] }, { duration: dwell / 1000, ease: "linear" });
+      }
+      timer = setTimeout(() => {
+        setActive((current + 1) % tabs.length, true);
+        if (visible && !userTookOver) scheduleNext();
+      }, dwell);
+    };
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => {
+        userTookOver = true;
+        clearTimers();
+        setActive(i, !reduceMotion);
+      });
+
+      tab.addEventListener("keydown", (event) => {
+        const step = event.key === "ArrowDown" || event.key === "ArrowRight"
+          ? 1
+          : event.key === "ArrowUp" || event.key === "ArrowLeft"
+            ? -1
+            : 0;
+        if (step === 0) return;
+        event.preventDefault();
+        userTookOver = true;
+        clearTimers();
+        const next = (current + step + tabs.length) % tabs.length;
+        setActive(next, !reduceMotion);
+        tabs[next].focus();
+      });
+    });
+
+    if (!reduceMotion) {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            visible = entry.isIntersecting;
+            if (visible && !userTookOver) scheduleNext();
+            else clearTimers();
+          }
+        },
+        { threshold: 0.3 },
+      );
+      observer.observe(root);
+    }
+  }
+</script>
