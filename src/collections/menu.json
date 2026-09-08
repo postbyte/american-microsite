@@ -1,18 +1,10 @@
 [
 	{
-		"name": "Home",
-		"url": "/"
+		"name": "How it works",
+		"url": "/#how"
 	},
 	{
-		"name": "Writing",
-		"url": "/blog"
-	},
-	{
-		"name": "Works",
-		"url": "/works"
-	},
-	{
-		"name": "About",
-		"url": "/about"
+		"name": "Privacy",
+		"url": "/#privacy"
 	}
 ]

@@ -1,7 +1,7 @@
 ---
-import { Mail, Moon, SunMedium,Download } from "@lucide/astro";
+import { Moon, SunMedium } from "@lucide/astro";
 import menus from "@/collections/menu.json";
-import Button from "@/components/ui/Button.astro";
+import DownloadAppButton from "@/components/challenge/DownloadAppButton.astro";
 import Logo from "@/components/ui/Logo.astro";
 ---
 
@@ -9,7 +9,7 @@ import Logo from "@/components/ui/Logo.astro";
 <div class="relative w-full h-16 sm:h-20 opacity-0 pointer-events-none"></div>
 <header id="header" class="fixed top-2 sm:top-4 z-50 w-full px-3 sm:px-4 lg:px-6">
   <div id="site-container"
-    class="flex items-center justify-between h-14 sm:h-15 site-container mx-auto px-4 sm:px-6 py-2.5 border-transparent border-[0.5px] transition-all duration-300"
+    class="flex items-center justify-between h-14 sm:h-15 site-container mx-auto px-4 sm:px-6 py-2.5 rounded-full border-transparent border-[0.5px] transition-all duration-300"
   >
     <!-- Logo -->
     <div class="flex-shrink-0 z-50">
@@ -19,29 +19,29 @@ import Logo from "@/components/ui/Logo.astro";
     <!-- Mobile Menu Background Overlay -->
     <div
       id="mobileMenuBackground"
-      class="fixed inset-0 z-20 hidden w-screen h-screen duration-300 ease-out bg-white/90 backdrop-blur-sm dark:bg-neutral-950/90"
+      class="fixed inset-0 z-20 hidden w-screen h-screen duration-300 ease-out bg-base-100/95 backdrop-blur-sm"
     >
     </div>
 
     <!-- Navigation -->
     <nav
-      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm sm:justify-end text-neutral-500 dark:text-neutral-400 sm:flex-row sm:items-center"
+      class="relative z-30 flex flex-row-reverse justify-start w-full text-sm sm:justify-end text-base-content/70 sm:flex-row sm:items-center"
     >
       <!-- Mobile Menu Toggle Buttons -->
       <div class="flex items-center gap-2 sm:hidden">
         <!-- Dark Mode Toggle (Mobile) -->
         <div
           id="darkToggleMobile"
-          class="flex items-center justify-center w-10 h-10 cursor-pointer rounded-full bg-gradient-to-b from-white to-[#edeefa] border-[0.5px] border-[#f3f3ff] dark:from-neutral-800 dark:to-neutral-600 dark:border-neutral-600 transition-transform duration-200 active:scale-95"
+          class="flex items-center justify-center w-10 h-10 cursor-pointer rounded-full bg-base-100 border-[0.5px] border-base-300 transition-transform duration-200 active:scale-95"
         >
           <div
-            class="flex justify-center items-center w-6 h-6 relative overflow-hidden rounded-full bg-[#7fa1ff]  bg-gradient-to-b from-[#85a6ff] to-[#2d6dc3] border-[0.5px] border-[#7fa1ff]"
-            style="box-shadow: 0px 2px 3px 0 rgba(55,52,209,0.21);"
+            class="flex justify-center items-center w-6 h-6 relative overflow-hidden rounded-full bg-primary border-[0.5px] border-primary"
+            
           >
             <SunMedium
-              class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease mobile-sun" />
+              class="absolute hidden text-primary-content w-4 h-4 transition duration-200 transform ease mobile-sun" />
             <Moon
-              class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease mobile-moon" />
+              class="absolute hidden text-primary-content w-4 h-4 transition duration-200 transform ease mobile-moon" />
           </div>
         </div>
 
@@ -51,7 +51,7 @@ import Logo from "@/components/ui/Logo.astro";
           class="flex items-center justify-center w-10 h-10 cursor-pointer transition-transform duration-200 active:scale-90"
         >
           <svg
-            class="w-7 h-7 text-neutral-700 dark:text-neutral-200"
+            class="w-7 h-7 text-base-content"
             fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -67,7 +67,7 @@ import Logo from "@/components/ui/Logo.astro";
           class="hidden items-center justify-center w-10 h-10 cursor-pointer transition-transform duration-200 active:scale-90"
         >
           <svg
-            class="w-6 h-6 text-neutral-600 dark:text-neutral-200"
+            class="w-6 h-6 text-base-content"
             fill="none"
             stroke-linecap="round"
             stroke-linejoin="round"
@@ -88,7 +88,7 @@ import Logo from "@/components/ui/Logo.astro";
           class="absolute inset-0 top-0 right-0 block w-full h-full sm:hidden"
         >
           <div
-            class="relative w-full h-full bg-white/95 border border-dashed border-neutral-300 dark:border-neutral-700 backdrop-blur-md rounded-2xl dark:bg-neutral-950/95 shadow-lg"
+            class="relative w-full h-full bg-base-100/95 border border-base-300 backdrop-blur-md rounded-2xl shadow-lg"
           >
           </div>
         </div>
@@ -100,7 +100,7 @@ import Logo from "@/components/ui/Logo.astro";
               return (
                 <a
                   href={menu.url}
-                  class="relative flex items-center justify-center w-full sm:w-auto px-5 py-2.5 sm:py-2 sm:px-3 md:px-4 font-medium tracking-wide text-center duration-200 ease-out rounded-lg sm:rounded-none text-neutral-700 dark:text-neutral-200   hover:text-primary sm:hover:bg-transparent dark:hover:text-white dark:hover:bg-neutral-800/50 sm:dark:hover:bg-transparent active:scale-[0.98] sm:active:scale-100 transition-all"
+                  class="relative flex items-center justify-center w-full sm:w-auto px-5 py-2.5 sm:py-2 sm:px-3 md:px-4 font-medium tracking-wide text-center duration-200 ease-out rounded-lg sm:rounded-none text-base-content/70 hover:text-base-content sm:hover:bg-transparent active:scale-[0.98] sm:active:scale-100 transition-all"
                 >
                   {menu.name}
                 </a>
@@ -111,38 +111,34 @@ import Logo from "@/components/ui/Logo.astro";
 
         <!-- Contact Button (Mobile) -->
         <div class="relative z-10 w-full px-5 mt-3 sm:hidden">
-          <Button url="javascript:void(0);" type="fill" className="m-auto w-full justify-center ">
-            Resume <Download size={16} />
-          </Button>
+          <DownloadAppButton size="sm" class="m-auto w-full justify-center" />
         </div>
       </div>
 
       <!-- Desktop Actions -->
       <div class="relative hidden sm:flex items-center gap-2 ml-4 lg:ml-6">
         <!-- Contact Button (Desktop) -->
-        <Button url="javascript:void(0);" type="fill" className="md:flex mx-1">
-          Resume <Download size={16} />
-        </Button>
+        <DownloadAppButton size="sm" class="md:flex mx-1" />
 
-        <span class="separator-line  hidden sm:inline-block bg-[rgba(183,202,255,0.5)] mt-[20px] -translate-y-1/2 w-px h-[20px]"></span>
+        <span class="separator-line  hidden sm:inline-block bg-base-300 mt-[20px] -translate-y-1/2 w-px h-[20px]"></span>
 
         <!-- Dark Mode Toggle (Desktop) -->
         <div
           id="darkToggle"
-          class="relative flex items-center h-9 px-2 gap-1.5 font-medium cursor-pointer rounded-full bg-gradient-to-b from-white to-[#edf1fa] border-[0.5px] border-[#f3f5ff] dark:from-neutral-800 dark:to-neutral-600 dark:border-neutral-600 transition-all duration-200 hover:shadow-md hover:scale-105 active:scale-95 mx-1"
+          class="relative flex items-center h-9 px-2 gap-1.5 font-medium cursor-pointer rounded-full bg-base-100 border-[0.5px] border-base-300 transition-all duration-200 hover:shadow-md hover:scale-105 active:scale-95 mx-1"
         >
           <div
-            class="flex justify-center items-center flex-shrink-0 w-6 h-6 relative overflow-hidden rounded-full bg-gradient-to-b from-[#85a6ff] to-[#2d6dc3] border-[0.5px] border-[#7fa1ff]"
-            style="box-shadow: 0px 2px 3px 0 rgba(55,52,209,0.21);"
+            class="flex justify-center items-center flex-shrink-0 w-6 h-6 relative overflow-hidden rounded-full bg-primary border-[0.5px] border-primary"
+            
           >
             <SunMedium id="sun"
-               class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease" />
-            <Moon class="absolute hidden text-white w-4 h-4 transition duration-200 transform ease"
+               class="absolute hidden text-primary-content w-4 h-4 transition duration-200 transform ease" />
+            <Moon class="absolute hidden text-primary-content w-4 h-4 transition duration-200 transform ease"
               id="moon" />
           </div>
           <span class="hidden sm:inline-block whitespace-nowrap">
-            <span id="dayText" class="flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">Light</span>
-            <span id="nightText" class="hidden flex-shrink-0 text-sm text-left text-[#6f6c8f] dark:text-neutral-400">Dark</span>
+            <span id="dayText" class="flex-shrink-0 text-sm text-left text-base-content/70">Light</span>
+            <span id="nightText" class="hidden flex-shrink-0 text-sm text-left text-base-content/70">Dark</span>
           </span>
         </div>
       </div>
@@ -320,11 +316,28 @@ import Logo from "@/components/ui/Logo.astro";
     }
   }
 
+  // Keep daisyUI's data-theme in lockstep with the legacy .dark class.
+  // main.js toggles .dark in several places; mirroring it here in one spot
+  // is more reliable than patching each of those call sites.
+  function syncTheme() {
+    const isDark = document.documentElement.classList.contains('dark');
+    const next = isDark ? 'acdark' : 'aclight';
+    if (document.documentElement.getAttribute('data-theme') !== next) {
+      document.documentElement.setAttribute('data-theme', next);
+    }
+  }
+
+  function onThemeChange() {
+    syncTheme();
+    syncDarkModeIcons();
+  }
+
   // Sync on initialization
-  document.addEventListener('DOMContentLoaded', syncDarkModeIcons);
+  document.addEventListener('DOMContentLoaded', onThemeChange);
+  onThemeChange();
 
   // Listen for dark mode changes
-  const observer = new MutationObserver(syncDarkModeIcons);
+  const observer = new MutationObserver(onThemeChange);
   observer.observe(document.documentElement, {
     attributes: true,
     attributeFilter: ['class']

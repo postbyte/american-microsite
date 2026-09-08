@@ -1,0 +1,25 @@
+---
+interface Props {
+  items: { q: string; a: string }[];
+}
+
+const { items } = Astro.props;
+---
+
+<!--
+  daisyUI collapse. Checkbox rather than radio so several answers can stay
+  open at once — radio would snap the previous one shut while scanning.
+-->
+<div class="flex flex-col gap-3">
+  {
+    items.map((item) => (
+      <div class="collapse collapse-plus bg-base-100 border border-base-300 shadow-diffuse">
+        <input type="checkbox" aria-label={item.q} />
+        <div class="collapse-title text-h3 pr-14">{item.q}</div>
+        <div class="collapse-content">
+          <p class="text-base leading-relaxed text-base-content/70">{item.a}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>

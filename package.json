@@ -2,6 +2,7 @@
 	"name": "astro-rico-portfolio",
 	"type": "module",
 	"version": "1.0.0",
+	"packageManager": "pnpm@10.32.1",
 	"description": "A modern, high-performance portfolio website template for designers built with Astro. Features retro blue theme, dark mode, and beautiful animations.",
 	"keywords": [
 		"astro",
@@ -42,6 +43,7 @@
 		"@tailwindcss/typography": "^0.5.13",
 		"@types/matter-js": "^0.20.2",
 		"astro": "^5.15.4",
+		"daisyui": "^5.7.16",
 		"postcss": "^8.4.31",
 		"tailwindcss": "^4.1.14",
 		"typescript": "^5.4.5",
@@ -52,6 +54,7 @@
 		"@astrojs/rss": "^4.0.13",
 		"@astrojs/sitemap": "^3.6.0",
 		"@lucide/astro": "^0.546.0",
+		"@mesh-gradient/core": "2.0.2",
 		"@tailwindcss/vite": "^4.1.14",
 		"aos": "^2.3.4",
 		"matter-js": "^0.20.0",

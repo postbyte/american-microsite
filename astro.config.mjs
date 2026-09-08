@@ -26,6 +26,11 @@ export default defineConfig({
 
   server: {
     port: 5200,
+    allowedHosts: ["yea-tapes-duplicate-source.trycloudflare.com"],
+  },
+
+  devToolbar: {
+    enabled: false,
   },
 
   integrations: [mdx(), sitemap()],

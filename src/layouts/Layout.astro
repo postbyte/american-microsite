@@ -1,6 +1,5 @@
 ---
 import Meta from './Meta.astro';
-import TopBg from "@/components/ui/TopBg.astro";
 import Footer from "@/components/sections/Footer.astro";
 import Header from "@/components/sections/Header.astro";
 import TrackGa from "@/components/widgets/TrackGa.astro";
@@ -24,7 +23,7 @@ import '../styles/article.css';
 import '../styles/article-enhancements.css';
 ---
 
-<html lang="">
+<html lang="" class="bg-base-200">
   <head>
     <meta charset="UTF-8" />
     <Meta
@@ -33,25 +32,63 @@ import '../styles/article-enhancements.css';
       keywords = {keywords}
     />
     <TrackGa />
-    <!-- Used to add dark mode right away, adding here prevents any flicker -->
+    <!--
+      Sets the theme before first paint to prevent flicker. Writes BOTH
+      data-theme (drives the daisyUI themes) and the legacy .dark class
+      (still used by dark: utilities on /blog, /about and /works).
+    -->
     <script is:inline>
-      if (typeof Storage !== 'undefined') {
-        if (
-          localStorage.getItem('dark_mode') &&
-          localStorage.getItem('dark_mode') == 'true'
-        ) {
-          document.documentElement.classList.add('dark')
-        }
-      }
+      (function () {
+        var dark = false;
+        try {
+          dark = localStorage.getItem('dark_mode') === 'true';
+        } catch (e) {}
+        var root = document.documentElement;
+        root.setAttribute('data-theme', dark ? 'acdark' : 'aclight');
+        root.classList.toggle('dark', dark);
+      })();
     </script>
 
     <link rel="icon" type="image/x-icon" href="/favicon.png" />
   </head>
-  <body class="antialiased bg-bg-primary dark:bg-bg-primary-dark max-w-full overflow-x-hidden">
-    <TopBg />
+  <body class="antialiased text-base-content max-w-full overflow-x-hidden">
+    <!--
+      Animated mesh-gradient page wash, replacing the old static blurred-radial
+      TopBg. Fixed + negative z-index so it paints above the page background
+      but below in-flow content; bottom mask fades it into the page tint. Paints
+      from the theme's --mesh-gradient-color-1..4 vars, the same blue/orange/
+      cream wash on every page. If a future page tags its hero photo with
+      [data-hero-cover], page-gradient.ts will re-tint itself from that
+      photo's extracted palette instead — no page currently opts into that.
+
+      The page background lives on <html>, not <body>: when a background is
+      set on body, the UA propagates it to paint the actual page canvas —
+      a layer beneath even negative-z-index content — so a -z-10 fixed
+      element behind a `bg-*` body would never be visible no matter how the
+      stacking context math reads on paper. Moving the color to <html>
+      keeps body neutral and lets this canvas paint where it visually should.
+    -->
+    <div
+      data-gradient-stage
+      class="page-gradient-parallax pointer-events-none fixed inset-x-0 top-0 -z-10 h-[720px] w-full opacity-0 transition-opacity duration-700 ease-out data-[ready]:opacity-100"
+    >
+      <canvas
+        data-page-gradient
+        class="pointer-events-none absolute inset-0 block h-full w-full mask-b-from-50% mask-b-to-100%"
+      ></canvas>
+      <div class="page-gradient-noise pointer-events-none absolute inset-0 block h-full w-full mask-b-from-50% mask-b-to-100%"></div>
+    </div>
     <Header />
     <slot />
     <Footer />
     <script src="../assets/js/main.js"></script>
+    <script>
+      import { initPageGradient } from "@/lib/page-gradient";
+      for (const c of document.querySelectorAll<HTMLCanvasElement>("canvas[data-page-gradient]")) {
+        void initPageGradient(c);
+      }
+    </script>
+    <!-- Dev-only annotation overlay: https://github.com/mearnest-dev/agentation-vanilla -->
+    {import.meta.env.DEV && <script src="/scripts/agentation-vanilla.js" is:inline />}
   </body>
 </html>

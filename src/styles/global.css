@@ -1,89 +1,250 @@
-/* Import Google Fonts */
-@import url("https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap");
-
+/* Geist only — one family, weights 400/500/600. Bevel's boldness comes from
+   size + tight tracking, never from heavy weight. */
+@import url("https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap");
 
 @import "tailwindcss";
 
 /* Path relative to current CSS file */
 @config "../../tailwind.config.mjs";
 
+@plugin "daisyui" {
+  themes: aclight --default, acdark --prefersdark;
+}
 
-/* Define theme font mappings */
+/* Light: near-white panels on a light-blue page. Navy is RARE — it appears
+   only on the primary CTA, the leaderboard panel and the closing CTA. */
+@plugin "daisyui/theme" {
+  name: "aclight";
+  default: true;
+  color-scheme: light;
+
+  --color-base-100: #ffffff;
+  --color-base-200: #f1f5f9;
+  --color-base-300: #e2e8f0;
+  --color-base-content: #0f172a;
+
+  --color-primary: #041e42;
+  --color-primary-content: #ffffff;
+  --color-secondary: #334155;
+  --color-secondary-content: #ffffff;
+  --color-accent: #e2231a;
+  --color-accent-content: #ffffff;
+  --color-neutral: #1e293b;
+  --color-neutral-content: #f8fafc;
+
+  --color-info: #0a2e63;   --color-info-content: #ffffff;
+  --color-success: #166534; --color-success-content: #ffffff;
+  --color-warning: #92400e; --color-warning-content: #ffffff;
+  --color-error: #b81810;   --color-error-content: #ffffff;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 9999px;   /* Bevel's pill buttons */
+  --radius-box: 1.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Dark: the inverse — navy dominates, near-white becomes rare. */
+@plugin "daisyui/theme" {
+  name: "acdark";
+  prefersdark: true;
+  color-scheme: dark;
+
+  --color-base-100: #0b1729;
+  --color-base-200: #08111f;
+  --color-base-300: #1b2b45;
+  --color-base-content: #e2e8f0;
+
+  --color-primary: #a9bcd6;
+  --color-primary-content: #08111f;
+  --color-secondary: #cbd5e1;
+  --color-secondary-content: #08111f;
+  --color-accent: #f04a3f;
+  --color-accent-content: #08111f;
+  --color-neutral: #e2e8f0;
+  --color-neutral-content: #08111f;
+
+  --color-info: #a9bcd6;   --color-info-content: #08111f;
+  --color-success: #86efac; --color-success-content: #08111f;
+  --color-warning: #fcd34d; --color-warning-content: #08111f;
+  --color-error: #f87171;   --color-error-content: #08111f;
+
+  --radius-selector: 0.5rem;
+  --radius-field: 9999px;
+  --radius-box: 1.5rem;
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/*
+  Legacy token names are KEPT and re-pointed at the new cool-grey palette.
+  /blog, /about, /works and ~10 shared components still reference them
+  (bg-bg-primary, text-primary, border-primary/15, bg-neutral-*). Renaming
+  would break those pages; re-pointing keeps them coherent for free.
+*/
 @theme {
-  --font-brand: "Instrument Serif", ui-sans-serif, system-ui, Noto Sans SC, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-sans: "Inter", ui-sans-serif, system-ui, Noto Sans SC, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --font-body: "Inter", ui-sans-serif, system-ui, Noto Sans SC, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-brand: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-body: "Geist", ui-sans-serif, system-ui, sans-serif;
   --max-screen: 1200px;
   --inner-screen: 800px;
 
-  --color-neutral-50: #f7f9fc;
-  --color-neutral-100: #edf1f8;
-  --color-neutral-200: #dfe4ed;
-  --color-neutral-300: #c5cedb;
-  --color-neutral-400: #92a1b7;
-  --color-neutral-500: #677487;
-  --color-neutral-600: #4f5a6d;
-  --color-neutral-700: #3f4a5a;
-  --color-neutral-800: #2c3542;
-  --color-neutral-900: #19222f;
-  --color-neutral-950: #10161f;
+  /* Fluid display scale. Headings clamp; body stays fixed rem. */
+  --text-display: clamp(2.75rem, 7vw, 5rem);
+  --text-h2: clamp(2rem, 4.5vw, 3.5rem);
+  --text-h3: 1.5rem;
+  --text-lead: 1.25rem;
 
-  --color-primary: #2d6dc3;
-  --color-primary-rgb: 45, 109, 195;
-  --color-primary-strong: #0066ff;
-  --color-primary-dark: #2d6dc3;
-  --color-primary-light: #8fb9ff;
-  --color-primary-light-dark: #bcd8ff;
-  --color-primary-lighter: #6da7ff;
-  /* Article-specific variables */
+  /* Cool slate ramp (was blue-tinted). */
+  --color-neutral-50: #f8fafc;
+  --color-neutral-100: #f1f5f9;
+  --color-neutral-200: #e2e8f0;
+  --color-neutral-300: #cbd5e1;
+  --color-neutral-400: #94a3b8;
+  --color-neutral-500: #64748b;
+  --color-neutral-600: #475569;
+  --color-neutral-700: #334155;
+  --color-neutral-800: #1e293b;
+  --color-neutral-900: #0f172a;
+  --color-neutral-950: #020617;
+
+  --color-primary: #041e42;
+  --color-primary-rgb: 4, 30, 66;
+  --color-primary-strong: #0a2e63;
+  --color-primary-dark: #041e42;
+  --color-primary-light: #7c93b5;
+  --color-primary-light-dark: #a9bcd6;
+  --color-primary-lighter: #5b76a0;
   --color-primary-bg: var(--color-bg-primary-light);
   --color-primary-bg-light: var(--color-bg-secondary);
 
+  --color-btn-primary: #041e42;
+  --color-btn-primary-hover: #0a2e63;
+  --color-btn-primary-dark: #1b3a66;
+  --color-btn-primary-dark-hover: #2a4d80;
 
-  --color-btn-primary: #2d6dc3;
-  --color-btn-primary-hover: #0066ff;
-  --color-btn-primary-dark: #2871e9;
-  --color-btn-primary-dark-hover: #2d6dc3;
+  --color-accent: #e2231a;
+  --color-accent-light: #f04a3f;
+  --color-accent-deep: #b81810;
+  /*
+    Brand red #E2231A is only 4.27:1 on white — it fails AA for small text but
+    is fine as a fill. This is the text-safe red; it flips per theme below.
+  */
+  --color-accent-text: #b81810;
 
-  /* Accent colors */
-  --color-accent: #fad13b;
-  --color-accent-light: #faeb75;
+  --color-bg-primary: #f1f5f9;
+  --color-bg-secondary: #ffffff;
+  --color-bg-primary-light: #f8fafc;
+  --color-bg-primary-deep: #ffffff;
 
-  /* Background colors */
+  --color-bg-primary-dark: #08111f;
+  --color-bg-secondary-dark: #0b1729;
 
-  --color-bg-primary: #fdfaf5;
-  --color-bg-secondary: #fff;
-  --color-bg-primary-light: #faf9f5;
-  --color-bg-primary-deep: #fefcf4;
+  --color-band: #041e42;
+  --color-band-dark: #0d2545;
 
-  --color-bg-primary-dark: #0b1220;
-  --color-bg-secondary-dark: #0f1b2d;
+  --color-text-primary: #0f172a;
+  --color-text-secondary: #334155;
+  --color-text-tertiary: #475569;
 
+  --color-text-primary-dark: #e2e8f0;
+  --color-text-secondary-dark: #cbd5e1;
+  --color-text-tertiary-dark: #94a3b8;
+}
 
-  /* Text colors */
-  --color-text-primary: #2d6dc3;
-  --color-text-secondary: #3f4a5a;
-  --color-text-tertiary: #7a6550;
+/*
+  Plain :root, deliberately NOT inside @theme above — Tailwind's @theme
+  block only keeps custom properties it can tie to a utility namespace and
+  silently drops the rest (bit us: --mesh-gradient-color-2/-3 vanished from
+  the compiled CSS while -1/-4 happened to survive). These are consumed at
+  runtime by @mesh-gradient/core's cssVariablesFallback option via plain
+  getComputedStyle (see page-gradient.ts), not by any Tailwind utility, so
+  they need a rule Tailwind won't touch.
+*/
+:root {
+  /*
+    Palette for pages/areas with no cover-derived palette — hex only, the
+    lib's color parser rejects oklch. Soft blue / orange / cream, kept as
+    low-chroma as TopBg's old blurred radials so it stays atmospheric
+    rather than a "designed" color block.
+  */
+  --mesh-gradient-color-1: #9ad3f3; /* sky blue, faded */
+  --mesh-gradient-color-2: #f9e3c8; /* soft orange, faded */
+  --mesh-gradient-color-3: #f8f1e4; /* cream */
+  --mesh-gradient-color-4: #eef2f6; /* pale blue-grey anchor, close to base-200 */
+}
 
-  --color-text-primary-dark: #3884eb;
-  --color-text-secondary-dark: #c5cedb;
-  --color-text-tertiary-dark: #9bb3d7;
+/* Text-safe red inverts on the dark theme. */
+[data-theme="acdark"] {
+  --color-accent-text: #ff9d92;
 }
 
 /* Dark mode variable overrides */
 html.dark {
-  --color-primary-rgb: 56, 132, 235;
-  --color-primary-light-dark: #3884eb;
-  --color-primary-lighter: #8fb9ff;
-  --color-primary-bg: rgba(56, 132, 235, 0.15);
-  --color-primary-bg-light: rgba(56, 132, 235, 0.05);
+  --color-primary-rgb: 169, 188, 214;
+  --color-primary-light-dark: #a9bcd6;
+  --color-primary-lighter: #7c93b5;
+  --color-primary-bg: rgba(169, 188, 214, 0.15);
+  --color-primary-bg-light: rgba(169, 188, 214, 0.05);
 }
 
 /* Add typography styles */
 @layer components {
+  /* Kept for /blog, /works, /about and the card components. Now just Geist. */
   .font-brand{
-    font-weight: 400!important;
+    font-family: var(--font-brand);
+    font-weight: 500;
+    letter-spacing: -0.02em;
+  }
+
+  /*
+    The core of the redesign. Bevel's display type is 64px/600/-0.03em at
+    line-height 1.0 — the weight never exceeds 600, so the impact has to come
+    from scale and negative tracking. Going heavier reads as the opposite.
+  */
+  .text-display{
+    font-size: var(--text-display);
+    font-weight: 600;
+    letter-spacing: -0.035em;
+    line-height: 0.98;
+    text-wrap: balance;
+  }
+  .text-h2{
+    font-size: var(--text-h2);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+    text-wrap: balance;
+  }
+  .text-h3{
+    font-size: var(--text-h3);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    line-height: 1.25;
+  }
+  .text-lead{
+    font-size: var(--text-lead);
+    font-weight: 400;
+    letter-spacing: -0.01em;
+    line-height: 1.5;
+    text-wrap: pretty;
+  }
+  .text-eyebrow{
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+  /* Bevel's section padding: generous and fluid. */
+  .section-y{
+    padding-block: clamp(5rem, 10vw, 9rem);
   }
   .prose {
     max-width: 65ch;
@@ -112,30 +273,115 @@ html.dark {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  .gradient-title {
-    background: linear-gradient(to right, #746aff, #0b046d);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+
+  /*
+    Soft, wide-spread shadow for cards/panels floating on the page tint.
+    Two layers — a big soft ambient falloff plus a closer, slightly denser
+    one — reads as diffuse light rather than a hard drop shadow. Slate-tinted
+    (not pure black) to stay tasteful against Bevel's cool-grey palette.
+  */
+  .shadow-diffuse {
+    box-shadow:
+      0 30px 60px -20px rgba(15, 23, 42, 0.12),
+      0 10px 24px -10px rgba(15, 23, 42, 0.08);
   }
- .gradient-title-light{
-    background: linear-gradient(to right, #bcb7ff, #746aff);
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+
+  /*
+    Hero band grain. References the inline #heroGrain feTurbulence filter in
+    index.astro. The slight contrast/saturate bump compensates for the flatting
+    the overlay blend introduces. --hue-shift is set per-image (see photo
+    usages) to pull each photo's cast toward the same cool navy family
+    without flattening every photo to one identical hue.
+  */
+  .hero-grain {
+    filter: url("#heroGrain") hue-rotate(var(--hue-shift, 0deg)) contrast(1.06) saturate(1.05);
+  }
+
+  /*
+    Fades the carousel's leading/trailing cards into the photo behind them
+    instead of cutting off hard at the edge, in both scroll directions.
+  */
+  .carousel-fade {
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      black 8%,
+      black 92%,
+      transparent
+    );
+  }
+
+  /*
+    Heavy film-grain overlay for the page-gradient canvas (page-gradient.ts),
+    generated client-side via an SVG data-URI <feTurbulence> so it needs no
+    build-time asset or extra request. Sits as a sibling to the canvas with
+    mix-blend-mode so it composites on top of the mesh.
+  */
+  .page-gradient-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 600 600' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.3' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 0 1'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 320px 320px;
+    mix-blend-mode: luminosity;
+    opacity: 0.5;
   }
 }
+
+/*
+  Scroll-driven parallax for the fixed page-gradient canvas + noise. Fixed
+  positioning pins the layer to the viewport rather than the document, which
+  is what makes this trick possible: a scroll-timeline animation nudges it
+  by a CSS transform as the page scrolls, so instead of just sitting frozen
+  in place (or scrolling away like an absolutely-positioned layer would) it
+  drifts upward slower than the page — a soft parallax read. Browsers
+  without scroll-timeline support (older Safari, Firefox) fall back to a
+  plain fixed layer — still correct, just without the drift.
+*/
+@keyframes page-gradient-parallax {
+  to {
+    transform: translateY(-35%);
+  }
+}
+.page-gradient-parallax {
+  animation: page-gradient-parallax linear forwards;
+  animation-timeline: scroll(root);
+  /*
+    Percentages, not a fixed vh length — a fixed length (the old 0 200vh)
+    maps the whole keyframe to the first ~2 viewport-heights of scroll, so on
+    a long page the drift finishes almost immediately and then sits frozen
+    for everything after. Percentages track the full scrollable distance of
+    the page, whatever that ends up being, so the drift continues the entire
+    way down.
+  */
+  animation-range: 0 100%;
+}
+
+/*
+  The page-gradient wash (Layout.astro) is tuned for the light aclight
+  surface. Against acdark's navy-dominant surface it would read as a bright
+  cream patch unless knocked back — darken lets the mesh only ever deepen
+  the page tint, never lighten past it.
+*/
+[data-theme="acdark"] [data-gradient-stage][data-ready] {
+  mix-blend-mode: darken;
+}
+/*
+  Text colour now comes from daisyUI's base-content, so it follows data-theme
+  automatically in both directions. Replaces the old html.dark pairs — the
+  legacy tokens were re-pointed to the same values, so /blog and /about are
+  unaffected.
+*/
 html,body{
-  color: var(--color-text-secondary);
-}
-html.dark,html.dark body{
-  color: var(--color-text-secondary-dark);
+  color: var(--color-base-content);
 }
 h1,h2,h3{
-  color:var(--color-text-primary);
-}
-html.dark h1,html.dark h2,html.dark h3{
-  color:var(--color-text-primary-dark);
+  color: var(--color-base-content);
 }
 
 /* Custom CSS styles */

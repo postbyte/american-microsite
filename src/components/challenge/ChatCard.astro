@@ -1,0 +1,39 @@
+---
+interface Props {
+  quote: string;
+  reply: string;
+  /**
+   * "glass" is used when the card floats over the hero photography — a lightly
+   * tinted, heavily blurred surface so the photo still reads through it.
+   */
+  variant?: "solid" | "glass";
+}
+
+const { quote, reply, variant = "solid" } = Astro.props;
+
+const surface =
+  variant === "glass"
+    ? "bg-base-100/55 backdrop-blur-2xl border border-base-100/40 shadow-diffuse"
+    : "bg-base-100 border border-base-300 shadow-diffuse";
+---
+
+<div class={`card h-full w-full ${surface}`}>
+  <div class="card-body gap-2 p-5 sm:p-4">
+    <!-- The athlete's message: right-aligned, in a translucent grey badge. -->
+    <div class="flex justify-end">
+      <div
+        class="ml-3 badge h-auto whitespace-normal border-base-content/15 bg-base-content/10 px-4 py-2.5 text-left text-lg leading-relaxed text-base-content backdrop-blur-sm"
+      >
+        {quote}
+      </div>
+    </div>
+
+    <!--
+      Sam answers from the left with no bubble — plain text, so the system
+      voice reads as a reply rather than another chat participant.
+    -->
+    <div class="mt-3">
+      <p class="text-lg leading-relaxed text-base-content/80">{reply}</p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,225 @@
+---
+import { Check, Send } from "@lucide/astro";
+
+interface ChatStep {
+  kind: "incoming" | "question" | "takeaway";
+  text?: string;
+  prompt?: string;
+  options?: string[];
+  selected?: number;
+  paragraphs?: string[];
+}
+
+const conversations: ChatStep[][] = [
+  [
+    {
+      kind: "incoming",
+      text: "I can't stop replaying how bad practice was. It feels like I'm getting worse every week.",
+    },
+    {
+      kind: "question",
+      prompt: "Set the last practice down for a second. What's making it feel fragile?",
+      options: ["Playing time", "One bad rep I can't shake", "Comparing myself to teammates"],
+      selected: 1,
+    },
+    {
+      kind: "takeaway",
+      paragraphs: [
+        "One rep is doing all the dragging. Worth noticing your brain filed a single moment as a season.",
+        "The one thing you can actually move this week is your first-rep routine. The rest is noise you can't control right this moment.",
+      ],
+    },
+  ],
+  [
+    {
+      kind: "incoming",
+      text: "Everyone's acting like they had this amazing summer and i just feel behind before we even started",
+    },
+    {
+      kind: "question",
+      prompt: "Be straight, where'd the summer actually get away from you?",
+      options: ["Work got in the way", "I did the packet but it's not enough", "I went quiet and let it slide"],
+      selected: 1,
+    },
+    {
+      kind: "takeaway",
+      paragraphs: [
+        "Then grade yourself on the part you controlled. The effort was yours — you put it in. Adaptation timelines aren't; bodies don't read calendars.",
+        "Two different report cards, and you're only behind on the one you can't sign. One move this week that starts closing it?",
+      ],
+    },
+  ],
+];
+---
+
+<!-- Decorative scripted AI-chat demo. Illustrative, not essential copy, so it's hidden from assistive tech rather than exposing a screen reader to a repeating, ever-changing thread. -->
+<div class="hero-chat-loop relative flex w-full items-center justify-center" aria-hidden="true">
+  <div
+    class="mx-auto flex w-full max-w-sm flex-col rounded-3xl border border-base-300 bg-base-100 p-4 shadow-diffuse sm:p-5"
+  >
+    <div class="hero-chat-thread flex h-[18rem] flex-col justify-end overflow-hidden sm:h-[21rem]">
+      {
+        conversations.map((convo, ci) => (
+          <div class="hero-chat-convo flex flex-col gap-3" data-convo={ci} style="display: none">
+            {convo.map((step) => (
+              <div class="hero-chat-step hidden">
+                {step.kind === "incoming" && (
+                  <div class="rounded-2xl bg-base-200 px-4 py-3 text-sm leading-relaxed text-base-content">
+                    {step.text}
+                  </div>
+                )}
+
+                {step.kind === "question" && (
+                  <div class="rounded-2xl border border-base-300 bg-base-100 p-4">
+                    <p class="text-sm leading-relaxed text-base-content">{step.prompt}</p>
+                    <ul class="mt-3 flex flex-col gap-2.5">
+                      {step.options?.map((option, i) => (
+                        <li class="flex items-center gap-2.5">
+                          <span
+                            class:list={[
+                              "flex h-5 w-5 shrink-0 items-center justify-center rounded-full border",
+                              i === step.selected
+                                ? "border-base-content bg-base-content"
+                                : "border-base-content/30",
+                            ]}
+                          >
+                            {i === step.selected && (
+                              <Check class="h-3 w-3 text-base-100" stroke-width={3} />
+                            )}
+                          </span>
+                          <span class="text-sm text-base-content/80">{option}</span>
+                        </li>
+                      ))}
+                    </ul>
+                    <div class="mt-3 rounded-full border border-base-300 px-4 py-2 text-sm text-base-content/40">
+                      Other…
+                    </div>
+                  </div>
+                )}
+
+                {step.kind === "takeaway" && (
+                  <div class="flex flex-col gap-3 rounded-2xl border border-success/50 bg-base-100 p-4">
+                    {step.paragraphs?.map((p) => (
+                      <p class="text-sm leading-relaxed text-base-content/80">{p}</p>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        ))
+      }
+    </div>
+
+    <div class="mt-5 flex items-center gap-3">
+      <div class="flex-1 rounded-full border border-base-300 px-4 py-2.5 text-sm text-base-content/40">
+        Message, @people or /command
+      </div>
+      <div class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-base-content">
+        <Send class="h-4 w-4 -translate-x-px text-base-100" />
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  import { animate } from "motion";
+
+  const section = document.querySelector<HTMLElement>(".hero-chat-loop");
+  const convos = section?.querySelectorAll<HTMLElement>(".hero-chat-convo");
+
+  if (section && convos && convos.length > 0) {
+    const sectionEl = section;
+    const convoEls = Array.from(convos).map((convo) => ({
+      convo,
+      steps: Array.from(convo.querySelectorAll<HTMLElement>(".hero-chat-step")),
+    }));
+
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    if (reduceMotion) {
+      // Static fully-revealed thread: just the first conversation, no animation.
+      const first = convoEls[0];
+      first.convo.style.display = "flex";
+      first.steps.forEach((el) => el.classList.remove("hidden"));
+    } else {
+      const OVERSHOOT: [number, number, number, number] = [0.34, 1.56, 0.64, 1];
+      const wait = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+      // Reveals `el`, and — since it was just added to the bottom-justified
+      // thread — the previously visible messages above it jump up in the
+      // same layout pass. We measure that jump (FLIP) and animate it away,
+      // so older messages visibly slide up as the new one arrives.
+      const revealStep = (el: HTMLElement, visibleSoFar: HTMLElement[]) => {
+        const before = visibleSoFar.map((e) => e.getBoundingClientRect().top);
+        el.classList.remove("hidden");
+        const after = visibleSoFar.map((e) => e.getBoundingClientRect().top);
+
+        const shifts = visibleSoFar.map((e, i) => {
+          const dy = before[i] - after[i];
+          if (Math.abs(dy) < 0.5) return Promise.resolve();
+          return animate(e, { y: [dy, 0] }, { duration: 0.5, ease: OVERSHOOT }).finished;
+        });
+
+        const enter = animate(
+          el,
+          { y: [20, 0], opacity: [0, 1] },
+          { duration: 0.6, ease: OVERSHOOT },
+        ).finished;
+
+        return Promise.all([...shifts, enter]);
+      };
+
+      const resetOut = (steps: HTMLElement[]) =>
+        animate(steps, { y: [0, 10], opacity: [1, 0] }, { duration: 0.4, ease: "easeIn" }).finished;
+
+      let visible = false;
+      let running = false;
+
+      async function loop() {
+        if (running) return;
+        running = true;
+        let convoIndex = 0;
+        while (visible) {
+          const { convo, steps } = convoEls[convoIndex];
+          convo.style.display = "flex";
+
+          const visibleSoFar: HTMLElement[] = [];
+          for (const el of steps) {
+            await revealStep(el, visibleSoFar);
+            visibleSoFar.push(el);
+            if (!visible) break;
+            await wait(1300);
+          }
+          if (visible) {
+            await wait(1600);
+            await resetOut(steps);
+          }
+          steps.forEach((el) => {
+            el.classList.add("hidden");
+            el.style.opacity = "";
+            el.style.transform = "";
+          });
+          convo.style.display = "none";
+          if (!visible) break;
+
+          convoIndex = (convoIndex + 1) % convoEls.length;
+          await wait(500);
+        }
+        running = false;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            visible = entry.isIntersecting;
+            if (visible) loop();
+          }
+        },
+        { threshold: 0.3 },
+      );
+
+      observer.observe(sectionEl);
+    }
+  }
+</script>
