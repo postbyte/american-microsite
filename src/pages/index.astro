@@ -13,7 +13,7 @@ import Panel from "@/components/challenge/Panel.astro";
 import Leaderboard from "@/components/challenge/Leaderboard.astro";
 import StatFigure from "@/components/challenge/StatFigure.astro";
 import FaqAccordion from "@/components/challenge/FaqAccordion.astro";
-import SubscribeForm from "@/components/challenge/SubscribeForm.astro";
+import DownloadAppButton from "@/components/challenge/DownloadAppButton.astro";
 
 import challenge from "@/collections/challenge.json";
 
@@ -73,7 +73,7 @@ const aos = {
       data-aos-duration="500"
       data-aos-once="true"
     >
-      <SubscribeForm id="hero" tone="light" class="!mt-0" />
+      <DownloadAppButton size="lg" />
       <p class="text-sm text-base-content/55">
         Brought to you by Sam, an AI mentor with NCAA funding that helps college athletes thrive.
       </p>
@@ -372,7 +372,7 @@ const aos = {
       <p class="text-lead mt-6 text-primary-content/75">
         The challenge launches September 8. Enroll anytime through September 29.
       </p>
-      <SubscribeForm id="final" buttonLabel="Sign Up" />
+      <DownloadAppButton size="lg" navy class="mt-10" />
     </div>
   </Panel>
 </Layout>
